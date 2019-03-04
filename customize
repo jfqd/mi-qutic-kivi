@@ -23,10 +23,10 @@ apt-get -y dist-upgrade
 echo "* Install kivitendo"
 mkdir -p /usr/local/src/kivitendo_documents
 cd /usr/local/src/
-git clone https://github.com/kivitendo/kivitendo-erp.git
-git checkout -b release-${KIVITENDO_VERSION}
 chown -R www-data:staff kivitendo_documents
+git clone https://github.com/kivitendo/kivitendo-erp.git
 cd kivitendo-erp
+git checkout -b release-${KIVITENDO_VERSION}
 chown -R www-data users spool webdav templates
 cp config/kivitendo.conf.default config/kivitendo.conf
 cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
