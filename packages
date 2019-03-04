@@ -48,7 +48,7 @@ postgresql
 postgresql-contrib
 aqbanking-tools
 poppler-utils
-# build-essential
+build-essential
 # tex stuff
 texlive-base-bin
 texlive-latex-recommended
