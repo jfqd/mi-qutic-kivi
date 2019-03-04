@@ -57,5 +57,6 @@ texlive-latex-extra
 texlive-lang-german
 texlive-generic-extra
 texlive-xetex
-# we need
+# tools we need
 net-tools
+cpanminus
