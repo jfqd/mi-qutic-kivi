@@ -27,6 +27,7 @@ chown -R www-data:staff kivitendo_documents
 git clone https://github.com/kivitendo/kivitendo-erp.git
 cd kivitendo-erp
 git checkout -b release-${KIVITENDO_VERSION}
+mkdir webdav
 chown -R www-data users spool webdav templates
 cp config/kivitendo.conf.default config/kivitendo.conf
 cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
