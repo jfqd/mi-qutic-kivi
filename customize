@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -o errexit
+
+export LC_ALL=en_US.utf8
+export LANGUAGE=en_US.utf8
+export LANG=en_US.utf8
+
+KIVITENDO_VERSION="3.5.3"
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MUNIN_PLUGINS="
+"
+
+echo "* Activate munin plugins"
+/usr/local/bin/munin-node-plugins ${MUNIN_PLUGINS}
+
+echo "* Get latest"
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+
+echo "* Install kivitendo"
+mkdir -p /usr/local/src/kivitendo_documents
+cd /usr/local/src/
+git clone https://github.com/kivitendo/kivitendo-erp.git
+git checkout -b release-${KIVITENDO_VERSION}
+chown -R www-data:staff kivitendo_documents
+cd kivitendo-erp
+chown -R www-data users spool webdav templates
+cp config/kivitendo.conf.default config/kivitendo.conf
+cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable kivitendo-task-server.service
+
+echo "* Ensure bootstrap will run next time"
+rm -rf /var/lib/bootstrap
+
+echo "* Cleaning up."
+apt-get -y purge git make gcc g++ build-essential
+rm -rf /usr/local/var/tmp/*
+history -c

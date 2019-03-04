@@ -1,0 +1,61 @@
+# perl dependencies
+libarchive-zip-perl
+libclone-perl
+libconfig-std-perl
+libdatetime-perl
+libdbd-pg-perl
+libdbi-perl
+libemail-address-perl
+libemail-mime-perl
+libfcgi-perl
+libjson-perl
+liblist-moreutils-perl
+libnet-smtp-ssl-perl
+libnet-sslglue-perl
+libparams-validate-perl
+libpdf-api2-perl 
+ibrose-db-object-perl
+librose-db-perl
+librose-object-perl
+libsort-naturally-perl
+libstring-shellquote-perl
+libtemplate-perl
+libtext-csv-xs-perl
+libtext-iconv-perl
+liburi-perl
+libxml-writer-perl
+libyaml-perl
+libimage-info-perl
+libgd-gd2-perl
+libapache2-mod-fcgid
+libfile-copy-recursive-perl
+libalgorithm-checkdigits-perl
+libcrypt-pbkdf2-perl
+libcgi-pm-perl
+libtext-unidecode-perl
+libwww-perl
+libhtml-restrict-perl
+libdatetime-set-perl
+libset-infinite-perl
+liblist-utilsby-perl
+libdaemon-generic-perl
+libfile-flock-perl
+libfile-slurp-perl
+# other dependencies
+apache2
+git
+postgresql
+postgresql-contrib
+aqbanking-tools
+poppler-utils
+# build-essential
+# tex stuff
+texlive-base-bin
+texlive-latex-recommended
+texlive-fonts-recommended
+texlive-latex-extra
+texlive-lang-german
+texlive-generic-extra
+texlive-xetex
+# we need
+net-tools
