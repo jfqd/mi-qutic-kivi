@@ -33,7 +33,7 @@ cp config/kivitendo.conf.default config/kivitendo.conf
 cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable kivitendo-task-server.service
-cpan HTML::Restrict
+# cpan HTML::Restrict
 
 echo "* Activate apache cgi module"
 a2enmod cgi
