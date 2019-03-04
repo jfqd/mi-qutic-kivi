@@ -14,7 +14,7 @@ libnet-smtp-ssl-perl
 libnet-sslglue-perl
 libparams-validate-perl
 libpdf-api2-perl 
-ibrose-db-object-perl
+librose-db-object-perl
 librose-db-perl
 librose-object-perl
 libsort-naturally-perl
@@ -34,7 +34,7 @@ libcrypt-pbkdf2-perl
 libcgi-pm-perl
 libtext-unidecode-perl
 libwww-perl
-libhtml-restrict-perl
+#libhtml-restrict-perl
 libdatetime-set-perl
 libset-infinite-perl
 liblist-utilsby-perl
