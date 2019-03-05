@@ -44,6 +44,7 @@ libfile-slurp-perl
 libpbkdf2-tiny-perl
 libregexp-ipv6-perl
 # other dependencies
+nginx
 apache2
 git
 postgresql

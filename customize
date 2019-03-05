@@ -39,6 +39,15 @@ echo "* Activate apache modules"
 a2enmod fcgid  || true
 a2enmod dav    || true
 a2enmod dav_fs || true
+sed -i -e "s/Listen 80/Listen 8080/" /etc/apache2/ports.conf
+
+echo "* Setup nginx"
+mv /usr/local/var/tmp/kivitendo /etc/nginx/sites-available/kivitendo
+ln -nfs /etc/nginx/sites-available/kivitendo /etc/nginx/sites-enabled/kivitendo
+mkdir -p /etc/nginx/ssl
+chmod 0500 /etc/nginx/ssl
+/usr/local/bin/ssl-selfsigned.sh -d /etc/nginx/ssl -f kivitendo
+systemctl restart nginx
 
 echo "* Ensure bootstrap will run next time"
 rm -rf /var/lib/bootstrap
