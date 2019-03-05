@@ -29,15 +29,16 @@ cd kivitendo-erp
 git checkout -b release-${KIVITENDO_VERSION}
 mkdir webdav
 chown -R www-data users spool webdav templates
-cp config/kivitendo.conf.default config/kivitendo.conf
+mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
 cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable kivitendo-task-server.service
 cpanm HTML::Restrict
 
 echo "* Activate apache modules"
-a2enmod fcgid
-# a2enmod dav
+a2enmod fcgid  || true
+a2enmod dav    || true
+a2enmod dav_fs || true
 
 echo "* Ensure bootstrap will run next time"
 rm -rf /var/lib/bootstrap
