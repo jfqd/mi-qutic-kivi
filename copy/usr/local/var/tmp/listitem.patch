@@ -1,0 +1,51 @@
+From 122d1d408bb23cbae80a00acb54e20402342b217 Mon Sep 17 00:00:00 2001
+From: jfqd <jfqd@blun.org>
+Date: Tue, 19 Feb 2019 15:15:22 +0100
+Subject: [PATCH] migrate alist with a lot of margins to a list with regular
+ margins
+
+---
+ SL/Template/LaTeX.pm             | 4 ++--
+ SL/Template/Plugin/KiviLatex.pm  | 4 ++--
+ templates/print/RB/inheaders.tex | 1 +
+ 3 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/SL/Template/LaTeX.pm b/SL/Template/LaTeX.pm
+index 130a42484..0c26bfa29 100644
+--- a/SL/Template/LaTeX.pm
++++ b/SL/Template/LaTeX.pm
+@@ -40,8 +40,8 @@ sub _format_text {
+ 
+ my %html_replace = (
+   '</p>'      => "\n\n",
+-  '<ul>'      => "\\begin{itemize} ",
+-  '</ul>'     => "\\end{itemize} ",
++  '<ul>'      => "\\begin{compactitem} ",
++  '</ul>'     => "\\end{compactitem} ",
+   '<ol>'      => "\\begin{enumerate} ",
+   '</ol>'     => "\\end{enumerate} ",
+   '<li>'      => "\\item ",
+diff --git a/SL/Template/Plugin/KiviLatex.pm b/SL/Template/Plugin/KiviLatex.pm
+index ca40971ce..7a7e806a8 100644
+--- a/SL/Template/Plugin/KiviLatex.pm
++++ b/SL/Template/Plugin/KiviLatex.pm
+@@ -26,8 +26,8 @@ sub filter {
+ 
+ my %html_replace = (
+   '</p>'      => "\n\n",
+-  '<ul>'      => "\\begin{itemize} ",
+-  '</ul>'     => "\\end{itemize} ",
++  '<ul>'      => "\\begin{compactitem} ",
++  '</ul>'     => "\\end{compactitem} ",
+   '<ol>'      => "\\begin{enumerate} ",
+   '</ol>'     => "\\end{enumerate} ",
+   '<li>'      => "\\item ",
+diff --git a/templates/print/RB/inheaders.tex b/templates/print/RB/inheaders.tex
+index 080dd0ffe..247104d01 100644
+--- a/templates/print/RB/inheaders.tex
++++ b/templates/print/RB/inheaders.tex
+@@ -15,3 +15,4 @@
+ \usepackage{xcolor,colortbl}
+ \usepackage{lastpage}
+ \usepackage{geometry}
++\usepackage{paralist}
