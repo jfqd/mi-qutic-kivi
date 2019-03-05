@@ -3,7 +3,7 @@ Description=Kivitendo-API
 
 [Service]
 WorkingDirectory=/home/ruby/www/kivitendo_rest_api
-ExecStart=/usr/local/bin/bundle exec /usr/local/bin/passenger start -d
+ExecStart=/usr/local/bin/bundle exec /usr/local/bin/passenger start
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
