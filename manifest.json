@@ -25,6 +25,10 @@
     "logstash_redis":        {"type": "text", "description": "ip addresses of the logstash redis nodes, seperated by comma and including redis-protocoll"},
     "vfstab":                {"type": "text", "description": "nfs mountpoint for vfstab-file"},
     "kivitendo_domain":      {"type": "text", "description": "domain of the kivitendo instance"},
-    "postgresql_pwd":        {"type": "text", "description": "postgresql superuser password"}
+    "kivitendo_admin_pwd":   {"type": "text", "description": "Admin password for the kivitendo gui user"},
+    "kivitendo_alert_email": {"type": "text", "description": "E-Mail Adress who will get information of background tests"},
+    "psql_kivi_pwd":         {"type": "text", "description": "postgresql password for the kivitendo user"},
+    "webdav_user":           {"type": "text", "description": "webdav user"},
+    "webdav_pwd":            {"type": "text", "description": "webdav password"}
   }
 }
