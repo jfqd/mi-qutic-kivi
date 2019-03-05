@@ -37,7 +37,7 @@ fi
 if /native/usr/sbin/mdata-get kivitendo_alert_email 1>/dev/null 2>&1; then
   ALERT_MAIL=$(/native/usr/sbin/mdata-get kivitendo_alert_email)
   sed -i \
-       -e "s#send_email_to  = alert@example.com#end_email_to  = ${ALERT_MAIL}#" \
+       -e "s#send_email_to  = alert@example.com#send_email_to  = ${ALERT_MAIL}#" \
        /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
@@ -45,12 +45,13 @@ fi
 if /native/usr/sbin/mdata-get psql_kivi_pwd 1>/dev/null 2>&1; then
   DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivi_pwd)
   sed -i \
-       -e "s#foobar#{DB_USER_PWD}#" \
+       -e "s#foobar#${DB_USER_PWD}#" \
        /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
   su - postgres -c 'psql --file=/usr/local/src/kivitendo-erp/config/psql_kivi_user.sql'
   rm /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
   # allow the user to create databases
   su - postgres -c 'psql -c "ALTER USER kivitendo CREATEDB;"'
+  systemctl restart postgresql
 fi
 
 # setup postgesql kivitendo user
@@ -58,7 +59,7 @@ if /native/usr/sbin/mdata-get webdav_user 1>/dev/null 2>&1; then
   WEBDAV_USR=$(/native/usr/sbin/mdata-get webdav_user)
   WEBDAV_PWD=$(/native/usr/sbin/mdata-get webdav_user)
   WEBDAV_CRYPTED_PWD=$(openssl passwd -apr1 $WEBDAV_PWD)
-  echo "${WEBDAV_USR}:${WEBDAV_CRYPTED_PWD}" > /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
+  echo "${WEBDAV_USR}:${WEBDAV_CRYPTED_PWD}" > /etc/apache2/webdav.password
   systemctl restart apache2
 fi
 
