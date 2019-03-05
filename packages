@@ -41,6 +41,8 @@ liblist-utilsby-perl
 libdaemon-generic-perl
 libfile-flock-perl
 libfile-slurp-perl
+libpbkdf2-tiny-perl
+libregexp-ipv6-perl
 # other dependencies
 apache2
 git
