@@ -59,6 +59,12 @@ echo "host all kivitendo 127.0.0.1 255.255.255.255 password" >> /etc/postgresql/
 mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
 systemctl restart postgresql
 
+echo "* Setup postgresql backup"
+mkdir -p /var/lib/postgresql/backups
+chown postgres:postgres /var/lib/postgresql/backups
+echo "0 1 * * * /usr/local/bin/psql_backup" > /var/spool/cron/crontabs/postgres
+chown postgres:crontab /var/spool/cron/crontabs/postgres
+
 echo "* Ensure bootstrap will run next time"
 rm -rf /var/lib/bootstrap
 
