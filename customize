@@ -45,7 +45,7 @@ cd kivitendo_rest_api
 gem install bundler
 export RAILS_ENV=production
 bundle install
-rm config/secrets.yml config/secrets.yml.enc config/secrets.yml.key
+rm config/secrets.yml config/secrets.yml.enc config/secrets.yml.key || true
 mv config/secrets.yml.bak config/secrets.yml
 RAILS_SECRET=$(bundle exec rails secret)
 sed -i \
