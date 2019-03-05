@@ -31,6 +31,9 @@ mkdir webdav
 chown -R www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
 cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
+sed -i \
+     -e "s#/var/www/kivitendo-erp/scripts/task_server.pl#/usr/local/src/kivitendo-erp/scripts/task_server.pl#" \
+     /etc/systemd/system/kivitendo-task-server.service
 systemctl daemon-reload
 cpanm HTML::Restrict
 
