@@ -32,8 +32,31 @@ chown -R www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
 cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
 systemctl daemon-reload
-systemctl enable kivitendo-task-server.service
 cpanm HTML::Restrict
+
+echo "* Install kivitendo-api"
+addgroup ruby
+adduser --disabled-password --system --quiet --home /home/ruby ruby
+adduser ruby ruby
+mkdir -p /home/ruby/www/
+cd /home/ruby/www/
+git clone https://github.com/jfqd/kivitendo_rest_api.git
+cd kivitendo_rest_api
+gem install bundler
+export RAILS_ENV=production
+bundle install
+rm config/secrets.yml config/secrets.yml.enc config/secrets.yml.key
+mv config/secrets.yml.bak config/secrets.yml
+RAILS_SECRET=$(bundle exec rails secret)
+sed -i \
+     -e "s/enter-secret_key_base-here/${RAILS_SECRET}/" \
+     config/secrets.yml
+sed -i \
+     -e "s/config.read_encrypted_secrets = true/config.read_encrypted_secrets = false/" \
+     config/environments/production.rb
+chown -R ruby:ruby /home/ruby
+cp /usr/local/var/tmp/kivitendo-api.service /etc/systemd/system/kivitendo-api.service
+systemctl daemon-reload
 
 echo "* Activate apache modules"
 a2enmod fcgid  || true

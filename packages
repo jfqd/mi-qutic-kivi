@@ -60,6 +60,11 @@ texlive-latex-extra
 texlive-lang-german
 texlive-generic-extra
 texlive-xetex
+# kivitedo-api
+ruby-dev
+libpq-dev
+libxml2
+zlib1g-dev
 # tools we need
 net-tools
 cpanminus

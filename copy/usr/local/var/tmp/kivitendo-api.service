@@ -1,0 +1,16 @@
+[Unit]
+Description=Kivitendo-API
+
+[Service]
+WorkingDirectory=/home/ruby/www/kivitendo_rest_api
+ExecStart=/usr/local/bin/bundle exec /usr/local/bin/passenger start -d
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=KivitendoAPI
+User=ruby
+Group=ruby
+Environment=RAILS_ENV=production
+
+[Install]
+WantedBy=multi-user.target
