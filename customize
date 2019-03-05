@@ -83,6 +83,7 @@ sed -i \
 echo "local all kivitendo password" >> /etc/postgresql/9.6/main/pg_hba.conf
 echo "host all kivitendo 127.0.0.1 255.255.255.255 password" >> /etc/postgresql/9.6/main/pg_hba.conf
 mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
+mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
 systemctl restart postgresql
 
 echo "* Setup postgresql backup"

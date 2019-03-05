@@ -29,8 +29,8 @@ if /native/usr/sbin/mdata-get kivitendo_admin_pwd 1>/dev/null 2>&1; then
 fi
 
 # setup kivitendo database password
-if /native/usr/sbin/mdata-get psql_kivi_pwd 1>/dev/null 2>&1; then
-  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivi_pwd)
+if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
+  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
        -e "s#password = kivitendo_pwd#password = ${DB_USER_PWD}#" \
        /usr/local/src/kivitendo-erp/config/kivitendo.conf
@@ -44,9 +44,19 @@ if /native/usr/sbin/mdata-get kivitendo_alert_email 1>/dev/null 2>&1; then
        /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
+# setup postgesql superuser
+if /native/usr/sbin/mdata-get psql_postgres_pwd 1>/dev/null 2>&1; then
+  DB_SUPERUSER_PWD=$(/native/usr/sbin/mdata-get psql_postgres_pwd)
+  sed -i \
+       -e "s#foobar#${DB_SUPERUSER_PWD}#" \
+       /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
+  su - postgres -c 'psql --file=/usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql'
+  rm /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
+fi
+
 # setup postgesql kivitendo user
-if /native/usr/sbin/mdata-get psql_kivi_pwd 1>/dev/null 2>&1; then
-  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivi_pwd)
+if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
+  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
        -e "s#foobar#${DB_USER_PWD}#" \
        /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
@@ -67,8 +77,8 @@ if /native/usr/sbin/mdata-get webdav_user 1>/dev/null 2>&1; then
 fi
 
 # setup kivitendo-api postgesql-connection
-if /native/usr/sbin/mdata-get psql_kivi_pwd 1>/dev/null 2>&1; then
-  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivi_pwd)
+if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
+  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
        -e "s#postgres://pg-user:pg-pwd@pg-host/pg-db-name#postgres://kivitendo:${DB_USER_PWD}@127.0.0.1/kivitendo#" \
        /home/ruby/www/kivitendo_rest_api/config/secrets.yml
