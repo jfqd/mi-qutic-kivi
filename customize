@@ -38,9 +38,9 @@ systemctl daemon-reload
 cpanm HTML::Restrict
 
 echo "* Patch kivitendo"
-mv /usr/local/var/tmp/menu-bar.css css/lx-office-erp/dhtmlsuite/menu-bar.css
-mv /usr/local/var/tmp/header.css css/lx-office-erp/frame_header/header.css
-mv /usr/local/var/tmp/menu.css css/lx-office-erp/menu.css
+# mv /usr/local/var/tmp/menu-bar.css css/lx-office-erp/dhtmlsuite/menu-bar.css
+# mv /usr/local/var/tmp/header.css css/lx-office-erp/frame_header/header.css
+# mv /usr/local/var/tmp/menu.css css/lx-office-erp/menu.css
 sed -i \
      -e "s#<div id=\"row_table_scroll_id\" style=\"overflow-y: auto; height: 25vh\">#<div id=\"row_table_scroll_id\" style=\"overflow-y: auto;\">#" \
      /usr/local/src/kivitendo-erp/templates/webpages/order/tabs/basic_data.html
