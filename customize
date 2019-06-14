@@ -73,16 +73,20 @@ echo "* Activate apache modules"
 a2enmod fcgid  || true
 a2enmod dav    || true
 a2enmod dav_fs || true
-sed -i -e "s/Listen 80/Listen 8080/" /etc/apache2/ports.conf
+a2enmod ssl    || true
+mkdir -p /etc/apache2/ssl
+chmod 0750 /etc/apache2/ssl
+/usr/local/bin/ssl-selfsigned.sh -d /etc/apache2/ssl -f kivitendo
+# sed -i -e "s/Listen 80/Listen 8080/" /etc/apache2/ports.conf
 systemctl restart apache2
 
-echo "* Setup nginx"
-mv /usr/local/var/tmp/kivitendo /etc/nginx/sites-available/kivitendo
-ln -nfs /etc/nginx/sites-available/kivitendo /etc/nginx/sites-enabled/kivitendo
-mkdir -p /etc/nginx/ssl
-chmod 0500 /etc/nginx/ssl
-/usr/local/bin/ssl-selfsigned.sh -d /etc/nginx/ssl -f kivitendo
-systemctl restart nginx
+# echo "* Setup nginx"
+# mv /usr/local/var/tmp/kivitendo /etc/nginx/sites-available/kivitendo
+# ln -nfs /etc/nginx/sites-available/kivitendo /etc/nginx/sites-enabled/kivitendo
+# mkdir -p /etc/nginx/ssl
+# chmod 0500 /etc/nginx/ssl
+# /usr/local/bin/ssl-selfsigned.sh -d /etc/nginx/ssl -f kivitendo
+# systemctl restart nginx
 
 echo "* Setup postgresql"
 sed -i \
@@ -97,7 +101,8 @@ systemctl restart postgresql
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups
 chown postgres:postgres /var/lib/postgresql/backups
-echo "0 1 * * * /usr/local/bin/psql_backup" > /var/spool/cron/crontabs/postgres
+echo "0 1 * * * /usr/local/bin/psql_backup" >> /var/spool/cron/crontabs/postgres
+echo "0 2 1 * * /usr/bin/vacuumdb --all" >> /var/spool/cron/crontabs/postgres
 chown postgres:crontab /var/spool/cron/crontabs/postgres
 
 echo "* Ensure bootstrap will run next time"
