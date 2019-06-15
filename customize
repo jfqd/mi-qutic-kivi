@@ -74,6 +74,7 @@ mkdir -p /home/ruby/.ssh/
 chmod 0700 /home/ruby/.ssh/
 touch /home/ruby/.ssh/authorized_keys
 chmod 0600 /home/ruby/.ssh/authorized_keys
+chown -R ruby:ruby /home/ruby/.ssh
 
 echo "* Activate apache modules"
 a2enmod fcgid  || true
