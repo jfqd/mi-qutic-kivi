@@ -47,7 +47,7 @@ sed -i \
 
 echo "* Install kivitendo-api"
 addgroup ruby
-adduser --disabled-password --system --quiet --home /home/ruby ruby
+adduser --disabled-password --system --quiet --home /home/ruby --shell /bin/bash ruby
 adduser ruby ruby
 mkdir -p /home/ruby/www/
 cd /home/ruby/www/
