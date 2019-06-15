@@ -77,16 +77,7 @@ a2enmod ssl    || true
 mkdir -p /etc/apache2/ssl
 chmod 0750 /etc/apache2/ssl
 /usr/local/bin/ssl-selfsigned.sh -d /etc/apache2/ssl -f kivitendo
-# sed -i -e "s/Listen 80/Listen 8080/" /etc/apache2/ports.conf
 systemctl restart apache2
-
-# echo "* Setup nginx"
-# mv /usr/local/var/tmp/kivitendo /etc/nginx/sites-available/kivitendo
-# ln -nfs /etc/nginx/sites-available/kivitendo /etc/nginx/sites-enabled/kivitendo
-# mkdir -p /etc/nginx/ssl
-# chmod 0500 /etc/nginx/ssl
-# /usr/local/bin/ssl-selfsigned.sh -d /etc/nginx/ssl -f kivitendo
-# systemctl restart nginx
 
 echo "* Setup postgresql"
 sed -i \
