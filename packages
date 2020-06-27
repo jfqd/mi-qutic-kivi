@@ -43,6 +43,7 @@ libfile-flock-perl
 libfile-slurp-perl
 libpbkdf2-tiny-perl
 libregexp-ipv6-perl
+libdatetime-event-cron-perl
 # other dependencies
 # nginx
 apache2
