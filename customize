@@ -9,11 +9,6 @@ export LANG=en_US.utf8
 KIVITENDO_VERSION="3.5.3"
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-MUNIN_PLUGINS="
-"
-
-echo "* Activate munin plugins"
-/usr/local/bin/munin-node-plugins ${MUNIN_PLUGINS}
 
 echo "* Get latest"
 apt-get -y update
