@@ -7,8 +7,10 @@ export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
 
 KIVITENDO_VERSION="3.5.5"
+PG_VERSION=9.6
 
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export DEBIAN_FRONTEND=noninteractive
 
 echo "* Get latest"
 apt-get -y update
@@ -78,18 +80,35 @@ a2enmod dav_fs || true
 a2enmod ssl    || true
 mkdir -p /etc/apache2/ssl
 chmod 0750 /etc/apache2/ssl
+/usr/sbin/a2enmod rewrite
 /usr/local/bin/ssl-selfsigned.sh -d /etc/apache2/ssl -f kivitendo
 systemctl restart apache2
+
+if [[ -d /etc/postgresql/11 ]]; then
+  echo "* Fix postgresql installation"
+  systemctl stop postgresql
+  pkill postgres
+  pg_createcluster 11 main --start &
+  sleep 30
+  pkill postgres
+  # fix installation
+  rm /lib/systemd/system/postgresql*
+  mv /usr/local/var/tmp/postgresql.service /lib/systemd/system/postgresql.service
+  sed -i -e "s/%i/11 main/g" /lib/systemd/system/postgresql.service
+  sed -i -e "s/%I/11/g" /lib/systemd/system/postgresql.service
+  systemctl daemon-reload &
+  PG_VERSION=11
+fi
 
 echo "* Setup postgresql"
 sed -i \
     -e "s/#listen_addresses = 'localhost'/listen_addresses = 'localhost'/" \
-    /etc/postgresql/11/main/postgresql.conf
-echo "local all kivitendo password" >> /etc/postgresql/11/main/pg_hba.conf
-echo "host all kivitendo 127.0.0.1 255.255.255.255 password" >> /etc/postgresql/11/main/pg_hba.conf
+    /etc/postgresql/${PG_VERSION}/main/postgresql.conf
+echo "local all kivitendo password" >> /etc/postgresql/${PG_VERSION}/main/pg_hba.conf
+echo "host all kivitendo 127.0.0.1 255.255.255.255 password" >> /etc/postgresql/${PG_VERSION}/main/pg_hba.conf
 mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
 mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
-systemctl restart postgresql
+systemctl start postgresql
 
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups
