@@ -4,7 +4,7 @@ This repository is based on [Joyent mibe](https://github.com/jfqd/mibe).
 
 ## description
 
-kivi lx-brand image, with kivitendo version 3.5.3
+kivi lx-brand image, with kivitendo version 3.5.5
 
 ## Build Image
 
@@ -17,3 +17,7 @@ TEMPLATE_ZONE_UUID=$(vmadm lookup alias='qutic-lx-template-zone')
   imgadm install -m /opt/mibe/images/qutic-kivi-*-imgapi.dsmanifest \ 
                  -f /opt/mibe/images/qutic-kivi-*.zfs.gz
 ```
+
+## Known Issues
+
+The service for the kivitendo-api is currently not working!
