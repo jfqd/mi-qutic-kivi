@@ -44,6 +44,7 @@ libfile-slurp-perl
 libpbkdf2-tiny-perl
 libregexp-ipv6-perl
 libdatetime-event-cron-perl
+libcam-pdf-perl
 # other dependencies
 # nginx
 apache2
