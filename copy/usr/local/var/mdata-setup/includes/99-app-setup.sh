@@ -64,7 +64,7 @@ if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
   rm /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
   # allow the user to create databases
   su - postgres -c 'psql -c "ALTER USER kivitendo CREATEDB;"'
-  systemctl restart postgresql
+  systemctl restart postgresql &
 fi
 
 # setup postgesql kivitendo user
