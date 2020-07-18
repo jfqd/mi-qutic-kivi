@@ -70,3 +70,4 @@ zlib1g-dev
 # tools we need
 net-tools
 cpanminus
+icc-profiles-free
