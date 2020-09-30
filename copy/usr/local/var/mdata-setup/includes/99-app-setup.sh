@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # start task-server
-if /native/usr/sbin/mdata-get start_task_server 1>/dev/null 2>&1; then
+if [[ $(/native/usr/sbin/mdata-get start_task_server 2>&1) = "true" ]]; then
   systemctl enable kivitendo-task-server.service
   systemctl start kivitendo-task-server.service
 fi
@@ -83,34 +83,42 @@ if /native/usr/sbin/mdata-get webdav_user 1>/dev/null 2>&1; then
   systemctl restart apache2
 fi
 
-# setup kivitendo-api postgesql-connection
-if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
-  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
-  sed -i \
-      -e "s#postgres://pg-user:pg-pwd@pg-host/pg-db-name#postgres://kivitendo:${DB_USER_PWD}@127.0.0.1/kivitendo#" \
-      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
-fi
+if [[ $(/native/usr/sbin/mdata-get start_kivi_api 2>&1) = "true" ]]; then
+  # install kivitendo-api
+  /usr/local/bin/install_kivitendo_api
+  
+  # setup kivitendo-api postgesql-connection
+  if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
+    DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
+    sed -i \
+        -e "s#postgres://pg-user:pg-pwd@pg-host/pg-db-name#postgres://kivitendo:${DB_USER_PWD}@127.0.0.1/kivitendo#" \
+        /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+  fi
 
-# setup kivitendo-api http-basic user
-if /native/usr/sbin/mdata-get kivi_api_user 1>/dev/null 2>&1; then
-  API_USR=$(/native/usr/sbin/mdata-get kivi_api_user)
-  sed -i \
-      -e "s#enter-http-user-here#${API_USR}#" \
-      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
-fi
+  # setup kivitendo-api http-basic user
+  if /native/usr/sbin/mdata-get kivi_api_user 1>/dev/null 2>&1; then
+    API_USR=$(/native/usr/sbin/mdata-get kivi_api_user)
+    sed -i \
+        -e "s#enter-http-user-here#${API_USR}#" \
+        /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+  fi
 
-# setup kivitendo-api http-basic password
-if /native/usr/sbin/mdata-get kivi_api_pwd 1>/dev/null 2>&1; then
-  API_PWD=$(/native/usr/sbin/mdata-get kivi_api_pwd)
-  sed -i \
-      -e "s#enter-http-password-here#${API_PWD}#" \
-      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
-fi
+  # setup kivitendo-api http-basic password
+  if /native/usr/sbin/mdata-get kivi_api_pwd 1>/dev/null 2>&1; then
+    API_PWD=$(/native/usr/sbin/mdata-get kivi_api_pwd)
+    sed -i \
+        -e "s#enter-http-password-here#${API_PWD}#" \
+        /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+  fi
 
-# start kivitendo-api
-if /native/usr/sbin/mdata-get start_kivi_api 1>/dev/null 2>&1; then
+  # start kivitendo-api
   systemctl enable kivitendo-api.service
   systemctl start kivitendo-api.service
+fi
+
+# install texlive 2020?
+if [[ $(/native/usr/sbin/mdata-get activate_zugpferd 2>&1) = "true" ]]; then
+  /usr/local/bin/install_texlive_2020
 fi
 
 # TODO

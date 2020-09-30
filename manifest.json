@@ -29,6 +29,7 @@
     "kivitendo_admin_pwd":   {"type": "text", "description": "Admin password for the kivitendo gui user"},
     "kivitendo_alert_email": {"type": "text", "description": "E-Mail address who will get information of background tests"},
     "kivitendo_fromn_email": {"type": "text", "description": "E-Mail address for sending"},
+    "activate_zugpferd":     {"type": "text", "description": "set to true if zugpferd should be used"},
     "psql_postgres_pwd":     {"type": "text", "description": "postgresql password for the postgres superuser"},
     "psql_kivitendo_pwd":    {"type": "text", "description": "postgresql password for the kivitendo user"},
     "webdav_user":           {"type": "text", "description": "webdav user"},
