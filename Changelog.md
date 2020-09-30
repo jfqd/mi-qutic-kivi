@@ -2,9 +2,9 @@
 
 ## 20200713.0
 
-* use latest qutic-lx debian-10 image
-* use latest kivitendo 3.5.5
-* use Postgresql version 11.5
+* add qutic-lx debian-10 image option
+* use latest kivitendo 3.5.6
+* add Postgresql version 11.5 option
 
 ## 20180404.2
 
