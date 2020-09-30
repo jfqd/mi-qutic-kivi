@@ -115,7 +115,6 @@ fi
 
 # TODO
 # - change values in kivitendo.conf related to mdata values
-# -- email_from     = kivitendo Daemon <root@localhost>
 # -- dial_command =
 # -- external_prefix = 0
 # -- international_dialing_prefix = 00
