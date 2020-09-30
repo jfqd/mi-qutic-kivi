@@ -1,10 +1,15 @@
 #!/bin/bash
 
-cd /usr/local/src/
-curl -LO https:/download.qutic.com/src/texlive/install-tl-unx.tar.gz
-tar xf install-tl-unx.tar.gz
-cd install-tl-20200929
-perl install-tl
+# echo "livetex 2020 installation will take some time, aprox. one hour!"
+# cd /usr/local/src/
+# curl -LO https:/download.qutic.com/src/texlive/install-tl-unx.tar.gz
+# tar xf install-tl-unx.tar.gz
+# cd install-tl-20200929
+# yes i | perl install-tl
+
+cd /usr/local
+curl -LO https:/download.qutic.com/src/texlive/texlive.tar.bz2
+tar xf texlive.tar.bz2
 
 sed -i \
     -e "s#latex = pdflatex#latex = /usr/local/bin/run_pdflatex.sh#" \
