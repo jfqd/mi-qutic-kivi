@@ -11,11 +11,11 @@ rm config/secrets.yml config/secrets.yml.enc config/secrets.yml.key || true
 mv config/secrets.yml.bak config/secrets.yml
 RAILS_SECRET=$(bundle exec rails secret)
 sed -i \
-     -e "s/enter-secret_key_base-here/${RAILS_SECRET}/" \
-     config/secrets.yml
+    -e "s/enter-secret_key_base-here/${RAILS_SECRET}/" \
+    config/secrets.yml
 sed -i \
-     -e "s/config.read_encrypted_secrets = true/config.read_encrypted_secrets = false/" \
-     config/environments/production.rb
+    -e "s/config.read_encrypted_secrets = true/config.read_encrypted_secrets = false/" \
+    config/environments/production.rb
 chown -R ruby:ruby /home/ruby
 cp /usr/local/var/tmp/kivitendo-api.service /etc/systemd/system/kivitendo-api.service
 systemctl daemon-reload
