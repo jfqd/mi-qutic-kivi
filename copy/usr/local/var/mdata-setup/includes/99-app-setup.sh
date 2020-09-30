@@ -12,44 +12,51 @@ if /native/usr/sbin/mdata-get mail_smarthost 1>/dev/null 2>&1; then
   MAIL_PWD=$(/native/usr/sbin/mdata-get mail_auth_pass)
   MAIL_HOST=$(/native/usr/sbin/mdata-get mail_smarthost)
   sed -i \
-       -e "s#host = localhost#host = ${MAIL_HOST}#" \
-       -e "s/#port = 25/port = 587/" \
-       -e "s#security = none#security = tls#" \
-       -e "s#login = mail_account_login#login = ${MAIL_UID}#" \
-       -e "s#password = mail_account_pwd#password = ${MAIL_PWD}#" \
-       /usr/local/src/kivitendo-erp/config/kivitendo.conf
+      -e "s#host = localhost#host = ${MAIL_HOST}#" \
+      -e "s/#port = 25/port = 587/" \
+      -e "s#security = none#security = tls#" \
+      -e "s#login = mail_account_login#login = ${MAIL_UID}#" \
+      -e "s#password = mail_account_pwd#password = ${MAIL_PWD}#" \
+      /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
 # setup kivitendo admin password
 if /native/usr/sbin/mdata-get kivitendo_admin_pwd 1>/dev/null 2>&1; then
   ADM_PWD=$(/native/usr/sbin/mdata-get kivitendo_admin_pwd)
   sed -i \
-       -e "s#admin_password = admin123#admin_password = ${ADM_PWD}#" \
-       /usr/local/src/kivitendo-erp/config/kivitendo.conf
+      -e "s#admin_password = admin123#admin_password = ${ADM_PWD}#" \
+      /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
 # setup kivitendo database password
 if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
   DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
-       -e "s#password = kivitendo_pwd#password = ${DB_USER_PWD}#" \
-       /usr/local/src/kivitendo-erp/config/kivitendo.conf
+      -e "s#password = kivitendo_pwd#password = ${DB_USER_PWD}#" \
+      /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
 # setup kivitendo alert email
 if /native/usr/sbin/mdata-get kivitendo_alert_email 1>/dev/null 2>&1; then
   ALERT_MAIL=$(/native/usr/sbin/mdata-get kivitendo_alert_email)
   sed -i \
-       -e "s#send_email_to  = alert@example.com#send_email_to  = ${ALERT_MAIL}#" \
-       /usr/local/src/kivitendo-erp/config/kivitendo.conf
+      -e "s#send_email_to  = alert@example.com#send_email_to  = ${ALERT_MAIL}#" \
+      /usr/local/src/kivitendo-erp/config/kivitendo.conf
+fi
+
+if /native/usr/sbin/mdata-get kivitendo_fromn_email 1>/dev/null 2>&1; then
+  MAIL_FROM=$(/native/usr/sbin/mdata-get kivitendo_fromn_email)
+  sed -i \
+      -e "s#email_from     = kivitendo Daemon <root@localhost>#email_from     = ${MAIL_FROM}#g" \
+      /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
 # setup postgesql superuser
 if /native/usr/sbin/mdata-get psql_postgres_pwd 1>/dev/null 2>&1; then
   DB_SUPERUSER_PWD=$(/native/usr/sbin/mdata-get psql_postgres_pwd)
   sed -i \
-       -e "s#foobar#${DB_SUPERUSER_PWD}#" \
-       /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
+      -e "s#foobar#${DB_SUPERUSER_PWD}#" \
+      /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
   su - postgres -c 'psql --file=/usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql'
   rm /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
 fi
@@ -58,8 +65,8 @@ fi
 if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
   DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
-       -e "s#foobar#${DB_USER_PWD}#" \
-       /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
+      -e "s#foobar#${DB_USER_PWD}#" \
+      /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
   su - postgres -c 'psql --file=/usr/local/src/kivitendo-erp/config/psql_kivi_user.sql'
   rm /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
   # allow the user to create databases
