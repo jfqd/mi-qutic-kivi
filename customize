@@ -52,7 +52,8 @@ git clone https://github.com/jfqd/kivitendo_rest_api.git
 cd kivitendo_rest_api
 gem install bundler -v1.17.3
 export RAILS_ENV=production
-bundle install
+export BUNDLER_WITHOUT="development test"
+bundle install --without development test
 rm config/secrets.yml config/secrets.yml.enc config/secrets.yml.key || true
 mv config/secrets.yml.bak config/secrets.yml
 RAILS_SECRET=$(bundle exec rails secret)
