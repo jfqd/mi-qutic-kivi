@@ -47,7 +47,7 @@ aqbanking_version=$(aqbanking-cli -h 2>&1 | head -n1 | tr -d "This is version ")
 if [[ ${aqbanking_version:0:1} -eq 5 ]]; then
   sed -i \
       -e 's#$sfile->get_path . "/$import_filename | $aqbin --cfgdir=\"" . $sfile->get_path . "\" export --profile=kivi 2> /dev/null ";#$sfile->get_path . "/$import_filename | $aqbin --cfgdir=\"" . $sfile->get_path . "\" listtrans --exporter=\"csv\" --profile=kivi 2> /dev/null ";#' \
-      /usr/local/src/kivitendo-erp/SL/Helper/MT940.pm b/SL/Helper/MT940.pm
+      /usr/local/src/kivitendo-erp/SL/Helper/MT940.pm
 fi
 
 echo "* Install kivitendo-api"
