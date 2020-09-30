@@ -87,24 +87,24 @@ fi
 if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
   DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
-       -e "s#postgres://pg-user:pg-pwd@pg-host/pg-db-name#postgres://kivitendo:${DB_USER_PWD}@127.0.0.1/kivitendo#" \
-       /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+      -e "s#postgres://pg-user:pg-pwd@pg-host/pg-db-name#postgres://kivitendo:${DB_USER_PWD}@127.0.0.1/kivitendo#" \
+      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
 fi
 
 # setup kivitendo-api http-basic user
 if /native/usr/sbin/mdata-get kivi_api_user 1>/dev/null 2>&1; then
   API_USR=$(/native/usr/sbin/mdata-get kivi_api_user)
   sed -i \
-       -e "s#enter-http-user-here#${API_USR}#" \
-       /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+      -e "s#enter-http-user-here#${API_USR}#" \
+      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
 fi
 
 # setup kivitendo-api http-basic password
 if /native/usr/sbin/mdata-get kivi_api_pwd 1>/dev/null 2>&1; then
   API_PWD=$(/native/usr/sbin/mdata-get kivi_api_pwd)
   sed -i \
-       -e "s#enter-http-password-here#${API_PWD}#" \
-       /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+      -e "s#enter-http-password-here#${API_PWD}#" \
+      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
 fi
 
 # start kivitendo-api
