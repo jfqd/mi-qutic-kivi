@@ -5,3 +5,7 @@ curl -LO https:/download.qutic.com/src/texlive/install-tl-unx.tar.gz
 tar xf install-tl-unx.tar.gz
 cd install-tl-20200929
 perl install-tl
+
+sed -i \
+    -e "s#latex = pdflatex#latex = /usr/local/bin/run_pdflatex.sh#" \
+    /usr/local/src/kivitendo-erp/config/kivitendo.conf
