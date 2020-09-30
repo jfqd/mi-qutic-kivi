@@ -50,30 +50,11 @@ if [[ ${aqbanking_version:0:1} -eq 5 ]]; then
       /usr/local/src/kivitendo-erp/SL/Helper/MT940.pm
 fi
 
-echo "* Install kivitendo-api"
+echo "* Install requirements for kivitendo-api"
 addgroup ruby
 adduser --disabled-password --system --quiet --home /home/ruby --shell /bin/bash ruby
 adduser ruby ruby
 mkdir -p /home/ruby/www/
-cd /home/ruby/www/
-git clone https://github.com/jfqd/kivitendo_rest_api.git
-cd kivitendo_rest_api
-gem install bundler -v1.17.3
-export RAILS_ENV=production
-export BUNDLER_WITHOUT="development test"
-bundle install --without development test || true
-rm config/secrets.yml config/secrets.yml.enc config/secrets.yml.key || true
-mv config/secrets.yml.bak config/secrets.yml
-RAILS_SECRET=$(bundle exec rails secret)
-sed -i \
-     -e "s/enter-secret_key_base-here/${RAILS_SECRET}/" \
-     config/secrets.yml
-sed -i \
-     -e "s/config.read_encrypted_secrets = true/config.read_encrypted_secrets = false/" \
-     config/environments/production.rb
-chown -R ruby:ruby /home/ruby
-cp /usr/local/var/tmp/kivitendo-api.service /etc/systemd/system/kivitendo-api.service
-systemctl daemon-reload
 
 echo "* Setup ssh for api deployment"
 mkdir -p /home/ruby/.ssh/
