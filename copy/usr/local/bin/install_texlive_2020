@@ -10,6 +10,7 @@
 cd /usr/local
 curl -LO https:/download.qutic.com/src/texlive/texlive.tar.bz2
 tar xf texlive.tar.bz2
+rm texlive.tar.bz2
 
 sed -i \
     -e "s#latex = pdflatex#latex = /usr/local/bin/run_pdflatex.sh#" \
