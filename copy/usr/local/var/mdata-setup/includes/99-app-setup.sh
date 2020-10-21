@@ -72,6 +72,7 @@ if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
   # allow the user to create databases
   su - postgres -c 'psql -c "ALTER USER kivitendo CREATEDB;"'
   systemctl restart postgresql &
+  systemctl enable postgresql || true
 fi
 
 # setup postgesql kivitendo user
@@ -115,6 +116,16 @@ if [[ $(/native/usr/sbin/mdata-get start_kivi_api 2>&1) = "true" ]]; then
   systemctl enable kivitendo-api.service
   systemctl start kivitendo-api.service
 fi
+
+# fix a link
+sed -i \
+    -e "s#kivitendo Homepage#kivitendo Infoseite#g"
+    -e "s#http://kivitendo.de#https://qutic.com/kivitendo#" \
+    /usr/local/src/kivitendo-erp/templates/webpages/login/company_logo.html
+
+# sed -i \
+#     -e "s#kivitendo Webseite (extern)#kivitendo Infoseite#" \
+#     /usr/local/src/kivitendo-erp/locale/de/all
 
 # install texlive 2020?
 if [[ $(/native/usr/sbin/mdata-get activate_zugpferd 2>&1) = "true" ]]; then
