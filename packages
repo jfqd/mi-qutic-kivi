@@ -47,6 +47,8 @@ libdatetime-event-cron-perl
 libcam-pdf-perl
 libmath-round-perl
 libtry-tiny-perl
+libcam-pdf-perl
+libexception-class-perl
 # other dependencies
 # nginx
 apache2
