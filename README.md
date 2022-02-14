@@ -4,7 +4,7 @@ This repository is based on [Joyent mibe](https://github.com/jfqd/mibe).
 
 ## description
 
-kivi lx-brand image, with kivitendo version 3.5.5
+kivi lx-brand image, with kivitendo version 3.5.7
 
 ## Build Image
 
