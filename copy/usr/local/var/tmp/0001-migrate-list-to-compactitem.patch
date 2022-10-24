@@ -49,3 +49,6 @@ index 080dd0ffe..247104d01 100644
  \usepackage{lastpage}
  \usepackage{geometry}
 +\usepackage{paralist}
+-- 
+2.38.0
+
