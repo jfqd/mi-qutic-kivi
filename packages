@@ -49,6 +49,9 @@ libmath-round-perl
 libtry-tiny-perl
 libcam-pdf-perl
 libexception-class-perl
+libimager-perl
+libimager-qrcode-perl
+librest-client-perl
 # other dependencies
 # nginx
 apache2
