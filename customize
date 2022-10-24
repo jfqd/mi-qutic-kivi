@@ -6,7 +6,7 @@ export LC_ALL=en_US.utf8
 export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
 
-KIVITENDO_VERSION="3.5.8"
+KIVITENDO_VERSION="3.7.0"
 PG_VERSION=9.6
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -24,6 +24,7 @@ chown -R www-data:staff kivitendo_documents
 git clone https://github.com/kivitendo/kivitendo-erp.git
 cd kivitendo-erp
 git checkout -b release-${KIVITENDO_VERSION}
+git am /usr/local/var/tmp/0001-migrate-list-to-compactitem.patch
 mkdir webdav
 chown -R www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
@@ -45,13 +46,18 @@ sed -i \
      -e "s#<div id=\"row_table_scroll_id\" style=\"overflow-y: auto; height: 25vh\">#<div id=\"row_table_scroll_id\" style=\"overflow-y: auto;\">#" \
      /usr/local/src/kivitendo-erp/templates/webpages/order/tabs/basic_data.html
 
+echo "* Export SEPA as xml-file"
+sed -i \
+  -e "s/'.cdd'/'.xml'/" \
+  /usr/local/src/kivitendo-erp/bin/mozilla/sepa.pl
+
 # fix aqbanking
-aqbanking_version=$(aqbanking-cli -h 2>&1 | head -n1 | tr -d "This is version ")
-if [[ ${aqbanking_version:0:1} -eq 5 ]]; then
-  sed -i \
-      -e 's#export --profile=kivi#listtrans --exporter=\"csv\" --profile=kivi#' \
-      /usr/local/src/kivitendo-erp/SL/Helper/MT940.pm
-fi
+# aqbanking_version=$(aqbanking-cli -h 2>&1 | head -n1 | tr -d "This is version ")
+# if [[ ${aqbanking_version:0:1} -eq 5 ]]; then
+#   sed -i \
+#       -e 's#export --profile=kivi#listtrans --exporter=\"csv\" --profile=kivi#' \
+#       /usr/local/src/kivitendo-erp/SL/Helper/MT940.pm
+# fi
 
 echo "* Install requirements for kivitendo-api"
 addgroup ruby
