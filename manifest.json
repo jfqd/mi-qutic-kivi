@@ -1,11 +1,11 @@
 {
   "name":         "qutic-kivi",
-  "version":      "20200713.0",
+  "version":      "20210611.0",
   "description":  "qutic kivitendo image",
   "organization": "qutic development",
   "brand":        "Instance",
   "homepage":     "https://github.com/jfqd/mi-qutic-kivi",
-  "base":         "f4eb6ee6-c5a1-11e8-9e53-177841ca2537",
+  "base":         "3cbac866-cf54-11eb-a281-573ef60b0155",
   "customer_metadata": {
     "admin_authorized_keys": {"type": "text", "description": "SSH public authorized key(s) for the admin user"},
     "root_authorized_keys":  {"type": "text", "description": "SSH public authorized key(s) for the root user"},

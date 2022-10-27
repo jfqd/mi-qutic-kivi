@@ -1,5 +1,10 @@
 # Changelog
 
+## 20210611.0
+
+* switch to ubunto 20.04 tls
+* use latest kivitendo 3.6.0
+
 ## 20200713.0
 
 * add qutic-lx debian-10 image option
