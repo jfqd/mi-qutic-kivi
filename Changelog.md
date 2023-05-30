@@ -1,5 +1,10 @@
 # Changelog
 
+## 220210413.0
+
+* use latest kivitendo 3.8.0
+* use latest qutix lx base image
+
 ## 20210611.0
 
 * switch to ubunto 20.04 tls
