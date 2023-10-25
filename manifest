@@ -1,8 +1,8 @@
 name="qutic-kivi"
 organization="qutic development"
 brand="Instance"
-version="220210413.0"
+version="20230721.0"
 description="qutic kivitendo image"
 homepage="https://github.com/jfqd/mi-qutic-kivi"
 users="root admin"
-base="3cbac866-cf54-11eb-a281-573ef60b0155"
+base="433d1deb-1f17-440c-baec-60fa4034a36e

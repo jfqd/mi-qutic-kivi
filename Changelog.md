@@ -1,9 +1,13 @@
 # Changelog
 
-## 220210413.0
+## 20230721.0
+
+* use latest qutic ubuntu 22.04 lx base image
+
+## 20210413.0
 
 * use latest kivitendo 3.8.0
-* use latest qutix lx base image
+* use latest qutic lx base image
 
 ## 20210611.0
 
