@@ -7,7 +7,7 @@ export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
 
 KIVITENDO_VERSION="3.8.0"
-PG_VERSION=9.6
+PG_VERSION=14
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export DEBIAN_FRONTEND=noninteractive
@@ -33,31 +33,18 @@ sed -i \
      -e "s#/var/www/kivitendo-erp/scripts/task_server.pl#/usr/local/src/kivitendo-erp/scripts/task_server.pl#" \
      /etc/systemd/system/kivitendo-task-server.service
 systemctl daemon-reload
-cpanm HTML::Restrict
+cpanm HTML::Restrict Encode::IMAPUTF7 IPC::Run Mail::IMAPClient || true
+
+echo "* check requirements"
+./scripts/installation_check.pl || true
 
 echo "* Patch kivitendo css"
-mv css/lx-office-erp/dhtmlsuite/menu-bar.css css/lx-office-erp/dhtmlsuite/menu-bar.css.bak
-mv css/lx-office-erp/frame_header/header.css css/lx-office-erp/frame_header/header.css.bak
-mv css/lx-office-erp/menu.css css/lx-office-erp/menu.css.bak
-mv /usr/local/var/tmp/menu-bar.css css/lx-office-erp/dhtmlsuite/menu-bar.css
-mv /usr/local/var/tmp/header.css css/lx-office-erp/frame_header/header.css
-mv /usr/local/var/tmp/menu.css css/lx-office-erp/menu.css
-sed -i \
-     -e "s#<div id=\"row_table_scroll_id\" style=\"overflow-y: auto; height: 25vh\">#<div id=\"row_table_scroll_id\" style=\"overflow-y: auto;\">#" \
-     /usr/local/src/kivitendo-erp/templates/webpages/order/tabs/basic_data.html
+# maybe later
 
 echo "* Export SEPA as xml-file"
 sed -i \
   -e "s/'.cdd'/'.xml'/" \
   /usr/local/src/kivitendo-erp/bin/mozilla/sepa.pl
-
-# fix aqbanking
-# aqbanking_version=$(aqbanking-cli -h 2>&1 | head -n1 | tr -d "This is version ")
-# if [[ ${aqbanking_version:0:1} -eq 5 ]]; then
-#   sed -i \
-#       -e 's#export --profile=kivi#listtrans --exporter=\"csv\" --profile=kivi#' \
-#       /usr/local/src/kivitendo-erp/SL/Helper/MT940.pm
-# fi
 
 echo "* Install requirements for kivitendo-api"
 addgroup ruby
@@ -83,21 +70,21 @@ chmod 0750 /etc/apache2/ssl
 /usr/local/bin/ssl-selfsigned.sh -d /etc/apache2/ssl -f kivitendo
 systemctl restart apache2
 
-if [[ -d /etc/postgresql/11 ]]; then
-  echo "* Fix postgresql installation"
-  systemctl stop postgresql
-  pkill postgres
-  pg_createcluster 11 main --start &
-  sleep 30
-  pkill postgres
-  # fix installation
-  rm /lib/systemd/system/postgresql*
-  mv /usr/local/var/tmp/postgresql.service /lib/systemd/system/postgresql.service
-  sed -i -e "s/%i/11 main/g" /lib/systemd/system/postgresql.service
-  sed -i -e "s/%I/11/g" /lib/systemd/system/postgresql.service
-  systemctl daemon-reload &
-  PG_VERSION=11
-fi
+# if [[ -d /etc/postgresql/11 ]]; then
+#   echo "* Fix postgresql installation"
+#   systemctl stop postgresql
+#   pkill postgres
+#   pg_createcluster 11 main --start &
+#   sleep 30
+#   pkill postgres
+#   # fix installation
+#   rm /lib/systemd/system/postgresql*
+#   mv /usr/local/var/tmp/postgresql.service /lib/systemd/system/postgresql.service
+#   sed -i -e "s/%i/11 main/g" /lib/systemd/system/postgresql.service
+#   sed -i -e "s/%I/11/g" /lib/systemd/system/postgresql.service
+#   systemctl daemon-reload &
+#   PG_VERSION=11
+# fi
 
 echo "* Setup postgresql"
 sed -i \
@@ -107,7 +94,12 @@ echo "local all kivitendo password" >> /etc/postgresql/${PG_VERSION}/main/pg_hba
 echo "host all kivitendo 127.0.0.1 255.255.255.255 password" >> /etc/postgresql/${PG_VERSION}/main/pg_hba.conf
 mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
 mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
-systemctl start postgresql
+mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql
+
+echo "* Fix postgresql for lx-branch"
+sed -i -e "s|PIDFile=|#PIDFile=|" /etc/systemd/system/postgresql@14-main.service
+systemctl daemon-reload
+systemctl start postgresql &
 
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups

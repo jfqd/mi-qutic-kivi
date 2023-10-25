@@ -51,6 +51,8 @@ if /native/usr/sbin/mdata-get kivitendo_fromn_email 1>/dev/null 2>&1; then
       /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
+su - postgres -c 'psql template1 --file=/usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql' || true
+
 # setup postgesql superuser
 if /native/usr/sbin/mdata-get psql_postgres_pwd 1>/dev/null 2>&1; then
   DB_SUPERUSER_PWD=$(/native/usr/sbin/mdata-get psql_postgres_pwd)

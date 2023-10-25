@@ -13,7 +13,7 @@ liblist-moreutils-perl
 libnet-smtp-ssl-perl
 libnet-sslglue-perl
 libparams-validate-perl
-libpdf-api2-perl 
+libpdf-api2-perl
 librose-db-object-perl
 librose-db-perl
 librose-object-perl
@@ -26,7 +26,7 @@ liburi-perl
 libxml-writer-perl
 libyaml-perl
 libimage-info-perl
-libgd-gd2-perl
+libgd-perl
 libapache2-mod-fcgid
 libfile-copy-recursive-perl
 libalgorithm-checkdigits-perl
@@ -34,7 +34,6 @@ libcrypt-pbkdf2-perl
 libcgi-pm-perl
 libtext-unidecode-perl
 libwww-perl
-#libhtml-restrict-perl
 libdatetime-set-perl
 libset-infinite-perl
 liblist-utilsby-perl
@@ -53,7 +52,6 @@ libimager-perl
 libimager-qrcode-perl
 librest-client-perl
 # other dependencies
-# nginx
 apache2
 git
 postgresql
@@ -62,13 +60,14 @@ aqbanking-tools
 poppler-utils
 build-essential
 # tex stuff
-texlive-base-bin
+texlive
+texlive-binaries
 texlive-latex-recommended
 texlive-fonts-recommended
 texlive-latex-extra
 texlive-lang-german
-texlive-generic-extra
 texlive-xetex
+ghostscript
 # kivitedo-api
 ruby-dev
 libpq-dev
