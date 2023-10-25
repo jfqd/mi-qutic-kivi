@@ -11,13 +11,13 @@ Subject: [PATCH] migrate alist with a lot of margins to a list with regular
  3 files changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/SL/Template/LaTeX.pm b/SL/Template/LaTeX.pm
-index 130a42484..0c26bfa29 100644
+index 42918b89b..4281ce752 100644
 --- a/SL/Template/LaTeX.pm
 +++ b/SL/Template/LaTeX.pm
-@@ -40,8 +40,8 @@ sub _format_text {
+@@ -44,8 +44,8 @@ sub _format_text {
  
  my %html_replace = (
-   '</p>'      => "\n\n",
+   '</p>'      => "\\par\n",
 -  '<ul>'      => "\\begin{itemize} ",
 -  '</ul>'     => "\\end{itemize} ",
 +  '<ul>'      => "\\begin{compactitem} ",
@@ -26,10 +26,10 @@ index 130a42484..0c26bfa29 100644
    '</ol>'     => "\\end{enumerate} ",
    '<li>'      => "\\item ",
 diff --git a/SL/Template/Plugin/KiviLatex.pm b/SL/Template/Plugin/KiviLatex.pm
-index ca40971ce..7a7e806a8 100644
+index 920dee49b..bd561af84 100644
 --- a/SL/Template/Plugin/KiviLatex.pm
 +++ b/SL/Template/Plugin/KiviLatex.pm
-@@ -26,8 +26,8 @@ sub filter {
+@@ -28,8 +28,8 @@ sub filter {
  
  my %html_replace = (
    '</p>'      => "\n\n",
@@ -41,7 +41,7 @@ index ca40971ce..7a7e806a8 100644
    '</ol>'     => "\\end{enumerate} ",
    '<li>'      => "\\item ",
 diff --git a/templates/print/RB/inheaders.tex b/templates/print/RB/inheaders.tex
-index 080dd0ffe..247104d01 100644
+index 278afc6e6..908a7367c 100644
 --- a/templates/print/RB/inheaders.tex
 +++ b/templates/print/RB/inheaders.tex
 @@ -15,3 +15,4 @@
@@ -49,6 +49,5 @@ index 080dd0ffe..247104d01 100644
  \usepackage{lastpage}
  \usepackage{geometry}
 +\usepackage{paralist}
--- 
 2.38.0
 
