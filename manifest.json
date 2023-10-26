@@ -5,7 +5,7 @@
   "organization": "qutic development",
   "brand":        "Instance",
   "homepage":     "https://github.com/jfqd/mi-qutic-kivi",
-  "base":         "433d1deb-1f17-440c-baec-60fa4034a36e",
+  "base":         "64813eee-734d-11ee-bcf0-db475b509861",
   "customer_metadata": {
     "admin_authorized_keys": {"type": "text", "description": "SSH public authorized key(s) for the admin user"},
     "root_authorized_keys":  {"type": "text", "description": "SSH public authorized key(s) for the root user"},
