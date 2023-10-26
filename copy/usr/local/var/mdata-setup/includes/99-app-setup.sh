@@ -121,7 +121,7 @@ fi
 
 # fix a link
 sed -i \
-    -e "s#kivitendo Homepage#kivitendo Infoseite#g"
+    -e "s#kivitendo Homepage#kivitendo Infoseite#g" \
     -e "s#http://kivitendo.de#https://qutic.com/kivitendo#" \
     /usr/local/src/kivitendo-erp/templates/webpages/login/company_logo.html
 
