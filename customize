@@ -17,6 +17,9 @@ apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
 
+echo "* Setup language env"
+locale-gen en_US.utf8 || true
+
 echo "* Install kivitendo"
 mkdir -p /usr/local/src/kivitendo_documents
 cd /usr/local/src/
