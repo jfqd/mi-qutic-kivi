@@ -7,7 +7,7 @@ export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
 
 KIVITENDO_VERSION="3.8.0"
-PG_VERSION=14
+PG_VERSION=16
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export DEBIAN_FRONTEND=noninteractive
@@ -70,21 +70,13 @@ chmod 0750 /etc/apache2/ssl
 /usr/local/bin/ssl-selfsigned.sh -d /etc/apache2/ssl -f kivitendo
 systemctl restart apache2
 
-# if [[ -d /etc/postgresql/11 ]]; then
-#   echo "* Fix postgresql installation"
-#   systemctl stop postgresql
-#   pkill postgres
-#   pg_createcluster 11 main --start &
-#   sleep 30
-#   pkill postgres
-#   # fix installation
-#   rm /lib/systemd/system/postgresql*
-#   mv /usr/local/var/tmp/postgresql.service /lib/systemd/system/postgresql.service
-#   sed -i -e "s/%i/11 main/g" /lib/systemd/system/postgresql.service
-#   sed -i -e "s/%I/11/g" /lib/systemd/system/postgresql.service
-#   systemctl daemon-reload &
-#   PG_VERSION=11
-# fi
+echo "* Setup apt-requirements for postgresql"
+wget -O /usr/share/keyrings/postgresql.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
+echo "deb [signed-by=/usr/share/keyrings/postgresql.asc] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/postgresql.list
+
+echo "* Install postgresql"
+apt-get update
+apt-get install -y postgresql postgresql-contrib
 
 echo "* Setup postgresql"
 sed -i \
@@ -92,6 +84,8 @@ sed -i \
     /etc/postgresql/${PG_VERSION}/main/postgresql.conf
 echo "local all kivitendo password" >> /etc/postgresql/${PG_VERSION}/main/pg_hba.conf
 echo "host all kivitendo 127.0.0.1 255.255.255.255 password" >> /etc/postgresql/${PG_VERSION}/main/pg_hba.conf
+
+echo "* Copy kivitendo postgresql setup"
 mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
 mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
 mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql

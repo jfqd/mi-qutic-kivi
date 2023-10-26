@@ -54,8 +54,10 @@ librest-client-perl
 # other dependencies
 apache2
 git
-postgresql
-postgresql-contrib
+# postgresql
+# postgresql-14
+# postgresql-common
+# postgresql-contrib
 aqbanking-tools
 poppler-utils
 build-essential
