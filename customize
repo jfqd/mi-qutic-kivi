@@ -91,9 +91,9 @@ mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/confi
 mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql
 
 echo "* Fix postgresql for lx-branch"
-sed -i -e "s|PIDFile=|#PIDFile=|" /etc/systemd/system/postgresql@14-main.service
+sed -i -e "s|PIDFile=|#PIDFile=|" /lib/systemd/system/postgresql@.service
 systemctl daemon-reload
-systemctl start postgresql &
+pg_createcluster ${PG_VERSION} main --start || true
 
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups
