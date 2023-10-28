@@ -26,7 +26,8 @@ cd /usr/local/src/
 chown -R www-data:staff kivitendo_documents
 git clone https://github.com/kivitendo/kivitendo-erp.git
 cd kivitendo-erp
-git checkout -b release-${KIVITENDO_VERSION}
+git checkout release-${KIVITENDO_VERSION}
+git checkout -b release-${KIVITENDO_VERSION}-changes
 git am /usr/local/var/tmp/0001-migrate-list-to-compactitem.patch
 mkdir webdav
 chown -R www-data users spool webdav templates
