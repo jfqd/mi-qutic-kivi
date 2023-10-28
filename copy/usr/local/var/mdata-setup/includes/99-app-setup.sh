@@ -57,7 +57,9 @@ if /native/usr/sbin/mdata-get kivitendo_fromn_email 1>/dev/null 2>&1; then
       /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
+echo "* enable plpgsql extension in db"
 su - postgres -c 'psql template1 --file=/usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql' || true
+rm /usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql
 
 # setup postgesql superuser
 if /native/usr/sbin/mdata-get psql_postgres_pwd 1>/dev/null 2>&1; then
@@ -132,8 +134,9 @@ fi
 # fix a link
 echo "* Patch kivi link"
 sed -i \
-    -e "s#kivitendo Homepage#kivitendo Infoseite#g" \
-    -e "s#http://kivitendo.de#https://qutic.com/kivitendo#" \
+    -e "s#kivitendo Homepage#kivitendo Hosting#g" \
+    -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
+    -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
     /usr/local/src/kivitendo-erp/templates/webpages/login/company_logo.html
 
 # sed -i \
