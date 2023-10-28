@@ -2,12 +2,14 @@
 
 # start task-server
 if [[ $(/native/usr/sbin/mdata-get start_task_server 2>&1) = "true" ]]; then
+  echo "* Start taskserver"
   systemctl enable kivitendo-task-server.service
   systemctl start kivitendo-task-server.service
 fi
 
 # setup kivitendo mailer
 if /native/usr/sbin/mdata-get mail_smarthost 1>/dev/null 2>&1; then
+  echo "* Setup kivi config for mail"
   MAIL_UID=$(/native/usr/sbin/mdata-get mail_auth_user)
   MAIL_PWD=$(/native/usr/sbin/mdata-get mail_auth_pass)
   MAIL_HOST=$(/native/usr/sbin/mdata-get mail_smarthost)
@@ -22,6 +24,7 @@ fi
 
 # setup kivitendo admin password
 if /native/usr/sbin/mdata-get kivitendo_admin_pwd 1>/dev/null 2>&1; then
+  echo "* Setup kivi config for auth"
   ADM_PWD=$(/native/usr/sbin/mdata-get kivitendo_admin_pwd)
   sed -i \
       -e "s#admin_password = admin123#admin_password = ${ADM_PWD}#" \
@@ -30,6 +33,7 @@ fi
 
 # setup kivitendo database password
 if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
+  echo "* Setup kivi config for db"
   DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
       -e "s#password = kivitendo_pwd#password = ${DB_USER_PWD}#" \
@@ -38,6 +42,7 @@ fi
 
 # setup kivitendo alert email
 if /native/usr/sbin/mdata-get kivitendo_alert_email 1>/dev/null 2>&1; then
+  echo "* Setup kivi config for mail"
   ALERT_MAIL=$(/native/usr/sbin/mdata-get kivitendo_alert_email)
   sed -i \
       -e "s#send_email_to  = alert@example.com#send_email_to  = ${ALERT_MAIL}#" \
@@ -45,6 +50,7 @@ if /native/usr/sbin/mdata-get kivitendo_alert_email 1>/dev/null 2>&1; then
 fi
 
 if /native/usr/sbin/mdata-get kivitendo_fromn_email 1>/dev/null 2>&1; then
+  echo "* Setup kivi config for mail"
   MAIL_FROM=$(/native/usr/sbin/mdata-get kivitendo_fromn_email)
   sed -i \
       -e "s#email_from     = kivitendo Daemon <root@localhost>#email_from     = ${MAIL_FROM}#g" \
@@ -55,6 +61,7 @@ su - postgres -c 'psql template1 --file=/usr/local/src/kivitendo-erp/config/psql
 
 # setup postgesql superuser
 if /native/usr/sbin/mdata-get psql_postgres_pwd 1>/dev/null 2>&1; then
+  echo "* Create db superuser"
   DB_SUPERUSER_PWD=$(/native/usr/sbin/mdata-get psql_postgres_pwd)
   sed -i \
       -e "s#foobar#${DB_SUPERUSER_PWD}#" \
@@ -65,6 +72,7 @@ fi
 
 # setup postgesql kivitendo user
 if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
+  echo "* Create db regular users"
   DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
       -e "s#foobar#${DB_USER_PWD}#" \
@@ -79,6 +87,7 @@ fi
 
 # setup postgesql kivitendo user
 if /native/usr/sbin/mdata-get webdav_user 1>/dev/null 2>&1; then
+  echo "* Setup kivi config for webdav"
   WEBDAV_USR=$(/native/usr/sbin/mdata-get webdav_user)
   WEBDAV_PWD=$(/native/usr/sbin/mdata-get webdav_user)
   WEBDAV_CRYPTED_PWD=$(openssl passwd -apr1 $WEBDAV_PWD)
@@ -87,6 +96,7 @@ if /native/usr/sbin/mdata-get webdav_user 1>/dev/null 2>&1; then
 fi
 
 if [[ $(/native/usr/sbin/mdata-get start_kivi_api 2>&1) = "true" ]]; then
+  echo "* Setup kivi-api"
   # install kivitendo-api
   /usr/local/bin/install_kivitendo_api
   
@@ -120,6 +130,7 @@ if [[ $(/native/usr/sbin/mdata-get start_kivi_api 2>&1) = "true" ]]; then
 fi
 
 # fix a link
+echo "* Patch kivi link"
 sed -i \
     -e "s#kivitendo Homepage#kivitendo Infoseite#g" \
     -e "s#http://kivitendo.de#https://qutic.com/kivitendo#" \
@@ -130,9 +141,9 @@ sed -i \
 #     /usr/local/src/kivitendo-erp/locale/de/all
 
 # install texlive 2020?
-if [[ $(/native/usr/sbin/mdata-get activate_zugpferd 2>&1) = "true" ]]; then
-  /usr/local/bin/install_texlive_2020
-fi
+# if [[ $(/native/usr/sbin/mdata-get activate_zugpferd 2>&1) = "true" ]]; then
+#   /usr/local/bin/install_texlive_2020
+# fi
 
 # TODO
 # - change values in kivitendo.conf related to mdata values
