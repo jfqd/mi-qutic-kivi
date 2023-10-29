@@ -6,6 +6,8 @@ This repository is based on [Joyent mibe](https://github.com/jfqd/mibe).
 
 kivi lx-brand ubuntu 22.04 image, with kivitendo version 3.8.0
 
+For upgade notes please use the [documentation](https://github.com/kivitendo/kivitendo-erp/blob/master/doc/UPGRADE).
+
 ## Build Image
 
 ```
