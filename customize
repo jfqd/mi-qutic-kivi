@@ -43,7 +43,7 @@ cpanm HTML::Restrict IPC::Run || true
 cpanm Encode::IMAPUTF7 Mail::IMAPClient || true
 
 echo "* check requirements"
-./scripts/installation_check.pl || true
+./scripts/installation_check.pl -v || true
 
 echo "* Patch kivitendo css"
 # maybe later
