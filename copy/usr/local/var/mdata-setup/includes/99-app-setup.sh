@@ -209,6 +209,24 @@ body {
 .control-panel {
   background: #e0e0e0;
 }
+.layout-actionbar div.layout-actionbar-combobox div.layout-actionbar-combobox-head>div {
+  background-color: #e0e0e0;
+}
+.layout-actionbar div.layout-actionbar-combobox div.layout-actionbar-combobox-head>span {
+  background-color: #e0e0e0;
+}
+.layout-actionbar div.layout-actionbar-combobox div.layout-actionbar-combobox-list div.layout-actionbar-action {
+  background-color: #e0e0e0;
+}
+.layout-actionbar div.layout-actionbar-combobox div.layout-actionbar-combobox-list div.layout-actionbar-action:hover {
+  background-color: #e0e0e0;
+}
+.layout-actionbar>div.layout-actionbar-action {
+  background-color: #e0e0e0;
+}
+.flash_message.flash_message_error {
+  color: black;
+}
 EOF
 
 echo "* Restart apache"
