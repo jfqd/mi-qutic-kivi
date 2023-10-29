@@ -112,6 +112,7 @@ chown postgres:postgres /var/lib/postgresql/backups
 echo "0 1 * * * /usr/local/bin/psql_backup" >> /var/spool/cron/crontabs/postgres
 echo "0 2 1 * * /usr/bin/vacuumdb --all" >> /var/spool/cron/crontabs/postgres
 chown postgres:crontab /var/spool/cron/crontabs/postgres
+echo "15 1 * * * /usr/local/bin/kivi_backup" >> /var/spool/cron/crontabs/root
 
 echo "* Ensure bootstrap will run next time"
 rm -rf /var/lib/bootstrap
