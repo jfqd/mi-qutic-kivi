@@ -30,7 +30,7 @@ git checkout release-${KIVITENDO_VERSION}
 git checkout -b release-${KIVITENDO_VERSION}-changes
 git am /usr/local/var/tmp/0001-migrate-list-to-compactitem.patch
 mkdir webdav
-chown -R www-data users spool webdav templates
+chown -R www-data:www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
 cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
 sed -i \
