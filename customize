@@ -114,10 +114,24 @@ echo "0 2 1 * * /usr/bin/vacuumdb --all" >> /var/spool/cron/crontabs/postgres
 chown postgres:crontab /var/spool/cron/crontabs/postgres
 echo "15 1 * * * /usr/local/bin/kivi_backup" >> /var/spool/cron/crontabs/root
 
+echo "* Create bash-history"
+cat >> /root/.bash_history << EOF
+systemctl edit --full kivitendo-task-server.service
+systemctl daemon-reload
+systemctl reset-failed kivitendo-task-server.service
+systemctl restart apache2
+journalctl --since $(date '+%Y-%m-%d')
+journalctl -r
+cd /usr/local/src/kivitendo-erp
+su - postgres
+su - ruby
+EOF
+
 echo "* Ensure bootstrap will run next time"
 rm -rf /var/lib/bootstrap
 
 echo "* Cleaning up."
 # apt-get -y purge git make gcc g++ build-essential
 rm -rf /usr/local/var/tmp/*
+rm -rf /var/spool/mail/*
 history -c
