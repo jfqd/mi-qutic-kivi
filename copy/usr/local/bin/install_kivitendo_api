@@ -3,7 +3,7 @@
 cd /home/ruby/www/
 git clone https://github.com/jfqd/kivitendo_rest_api.git
 cd kivitendo_rest_api
-gem install bundler -v1.17.3
+gem install bundler -v2.4.21
 export RAILS_ENV=production
 export BUNDLER_WITHOUT="development test"
 bundle install --without development test || true
