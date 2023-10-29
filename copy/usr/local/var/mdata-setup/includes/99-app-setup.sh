@@ -161,6 +161,53 @@ sed -i \
     -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
     /usr/local/src/kivitendo-erp/menus/user/00-erp.yaml
 
+echo "* Patch kivitendo css"
+cat >> /usr/local/src/kivitendo-erp/css/design40/style.css << EOF
+
+/* changes by qutic development GmbH */
+#frame-header div.frame-header-quicksearch span.frame-header-quicksearch input {
+  background-color: #efefef;
+}
+#menuv3 {
+  background-color: #e0e0e0;
+}
+#menuv3>ul>li {
+  background-color: #e0e0e0;
+}
+#menuv3>ul>li:hover {
+  background-color: #d0d0d0;
+}
+#menuv3>ul>li>ul>li {
+  background-color: #d0d0d0;
+}
+#menuv3>ul>li>ul>li:hover {
+  background-color: #e0e0e0;
+}
+#menuv3>ul>li>ul>li>ul>li {
+  background-color: #d0d0d0;
+}
+#menuv3>ul>li>ul>li>ul>li:hover {
+  background-color: #e0e0e0;
+}
+body #content {
+  background-image: none;
+  background: #efefef;
+}
+#content>h1 {
+  background-color: #79b61b;
+  border-top: 1px solid black;
+}
+table.tbl-list {
+  width: 100%;
+}
+body {
+  background-color: #efefef;
+}
+.control-panel {
+  background: #e0e0e0;
+}
+EOF
+
 echo "* Restart apache"
 systemctl restart apache2
 
