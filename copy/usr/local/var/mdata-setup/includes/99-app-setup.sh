@@ -142,25 +142,25 @@ sed -i \
     -e "s#kivitendo Homepage#kivitendo Hosting#g" \
     -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
     -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
-    templates/design40_webpages/login/company_logo.html
+    /usr/local/src/kivitendo-erp/templates/design40_webpages/login/company_logo.html
 sed -i \
     -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
     -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
-    templates/design40_webpages/login_screen/user_login.html
+    /usr/local/src/kivitendo-erp/templates/design40_webpages/login_screen/user_login.html
 sed -i \
     -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
     -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
-    templates/webpages/login_screen/user_login.html
+    /usr/local/src/kivitendo-erp/templates/webpages/login_screen/user_login.html
 sed -i \
     -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
     -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
-    templates/design40_webpages/admin/adminlogin.html
+    /usr/local/src/kivitendo-erp/templates/design40_webpages/admin/adminlogin.html
 sed -i \
     -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
-    menus/admin/00-admin.yaml
+    /usr/local/src/kivitendo-erp/menus/admin/00-admin.yaml
 sed -i \
     -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
-    menus/user/00-erp.yaml
+    /usr/local/src/kivitendo-erp/menus/user/00-erp.yaml
 
 echo "* Restart apache"
 systemctl restart apache2
