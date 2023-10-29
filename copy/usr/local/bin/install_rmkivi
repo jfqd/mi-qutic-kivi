@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+mkdir -p /home/ruby/www/qutic_rmkivi/current
+cd /home/ruby/www/qutic_rmkivi/current
+
+PROJECT_URL=$(/native/usr/sbin/mdata-get git_clone_rmkivi)
+git clone "${PROJECT_URL}"
+cd rmkivi
+gem build rmkivi.gemspec
+ 
+gem install nokogiri
+gem install dotenv
+gem install activesupport
+gem install rest-client
+gem install hanami-cli -v0.1.1
+gem install --local ./rmkivi-0.3.5.gem
+
+cp env.sample ../.env
+cd ..
+rm -rf ./rmkivi
+
+cat >> rmkivi-sync << EOF
+#!/usr/bin/bash
+
+ruby /var/lib/gems/3.0.0/gems/rmkivi-0.3.5/bin/rmkivi sync $(date "+%Y-%m-%d")
+EOF
+chmod +x ./rmkivi-sync
+chown -R ruby:ruby /home/ruby
+
+echo "*/5 * * * * cd /home/ruby/www/qutic_rmkivi/current && ./rmkivi-sync 2>&1 >> ./sync.log" >> /var/spool/cron/crontabs/ruby
