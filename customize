@@ -45,9 +45,6 @@ cpanm Encode::IMAPUTF7 Mail::IMAPClient || true
 echo "* check requirements"
 ./scripts/installation_check.pl -v || true
 
-echo "* Patch kivitendo css"
-# maybe later
-
 echo "* Export SEPA as xml-file"
 sed -i \
   -e "s/'.cdd'/'.xml'/" \

@@ -23,3 +23,5 @@ TEMPLATE_ZONE_UUID=$(vmadm lookup alias='qutic-lx-template-zone')
 ## Known Issues
 
 The systemd-service for the kivitendo-api is currently not working!
+
+(c) 2019-2023 qutic development GmbH
