@@ -37,7 +37,10 @@ sed -i \
      -e "s#/var/www/kivitendo-erp/scripts/task_server.pl#/usr/local/src/kivitendo-erp/scripts/task_server.pl#" \
      /etc/systemd/system/kivitendo-task-server.service
 systemctl daemon-reload
-cpanm HTML::Restrict Encode::IMAPUTF7 IPC::Run Mail::IMAPClient || true
+# new for 3.6.1
+cpanm HTML::Restrict IPC::Run || true
+# new for 3.9.0
+cpanm Encode::IMAPUTF7 Mail::IMAPClient || true
 
 echo "* check requirements"
 ./scripts/installation_check.pl || true
