@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 cd /home/ruby/www/
 git clone https://github.com/jfqd/kivitendo_rest_api.git

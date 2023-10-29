@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 # This script will generate a self signed ssl certificate for temporary
 # usage and for development environment. It's moslty used if not ssl
 # certificate is provided via mdata.
