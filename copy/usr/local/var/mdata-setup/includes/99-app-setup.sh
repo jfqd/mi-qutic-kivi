@@ -165,6 +165,9 @@ echo "* Patch kivitendo css"
 cat >> /usr/local/src/kivitendo-erp/css/design40/style.css << EOF
 
 /* changes by qutic development GmbH */
+body div.admin {
+  background: #efefef;
+}
 #frame-header div.frame-header-quicksearch span.frame-header-quicksearch input {
   background-color: #efefef;
 }
