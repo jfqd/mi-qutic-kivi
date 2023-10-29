@@ -91,9 +91,8 @@ fi
 if /native/usr/sbin/mdata-get webdav_user 1>/dev/null 2>&1; then
   echo "* Setup kivi config for webdav"
   WEBDAV_USR=$(/native/usr/sbin/mdata-get webdav_user)
-  WEBDAV_PWD=$(/native/usr/sbin/mdata-get webdav_user)
-  WEBDAV_CRYPTED_PWD=$(openssl passwd -apr1 $WEBDAV_PWD)
-  echo "${WEBDAV_USR}:${WEBDAV_CRYPTED_PWD}" > /etc/apache2/webdav.password
+  WEBDAV_PWD=$(/native/usr/sbin/mdata-get webdav_pwd)
+  echo "${WEBDAV_PWD}" | htpasswd -c -i /etc/apache2/webdav.password "${WEBDAV_USR}"
   systemctl restart apache2
 fi
 
