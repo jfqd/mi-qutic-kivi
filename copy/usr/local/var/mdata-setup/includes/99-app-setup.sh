@@ -162,7 +162,7 @@ sed -i \
     /usr/local/src/kivitendo-erp/menus/user/00-erp.yaml
 
 echo "* Patch kivitendo css"
-cat >> /usr/local/src/kivitendo-erp/css/design40/style.css << EOF
+cat >> /usr/local/src/kivitendo-erp/css/design40/style.css << 'EOF'
 
 /* changes by qutic development GmbH */
 body div.admin {
@@ -207,6 +207,9 @@ table.tbl-list {
   width: 100%;
 }
 body {
+  background-color: #efefef;
+}
+body div.admin {
   background-color: #efefef;
 }
 .control-panel {
