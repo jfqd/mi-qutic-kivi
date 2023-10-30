@@ -168,6 +168,9 @@ cat >> /usr/local/src/kivitendo-erp/css/design40/style.css << EOF
 body div.admin {
   background: #efefef;
 }
+#frame-header {
+  background-color: #525c66;
+}
 #frame-header div.frame-header-quicksearch span.frame-header-quicksearch input {
   background-color: #efefef;
 }
@@ -198,7 +201,7 @@ body #content {
 }
 #content>h1 {
   background-color: #79b61b;
-  border-top: 1px solid black;
+  border-top: 1px solid #666;
 }
 table.tbl-list {
   width: 100%;
@@ -211,6 +214,7 @@ body {
 }
 .layout-actionbar div.layout-actionbar-combobox div.layout-actionbar-combobox-head>div {
   background-color: #e0e0e0;
+  border: 1px #666 solid;
 }
 .layout-actionbar div.layout-actionbar-combobox div.layout-actionbar-combobox-head>span {
   background-color: #e0e0e0;
