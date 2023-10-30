@@ -106,10 +106,14 @@ mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kivitendo-erp/confi
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups
 chown postgres:postgres /var/lib/postgresql/backups
-echo "0 1 * * * /usr/local/bin/psql_backup" >> /var/spool/cron/crontabs/postgres
-echo "0 2 1 * * /usr/bin/vacuumdb --all" >> /var/spool/cron/crontabs/postgres
-chown postgres:crontab /var/spool/cron/crontabs/postgres
-echo "15 1 * * * /usr/local/bin/kivi_backup" >> /var/spool/cron/crontabs/root
+cat > /etc/cron.d/kivi-cron << 'EOF'
+MAILTO=root
+#
+0 1 * * *     postgres   /usr/local/bin/psql_backup
+0 2 1 * *     postgres   /usr/bin/vacuumdb --all
+15 1 * * *    root       /usr/local/bin/kivi_backup
+# END
+EOF
 
 echo "* Create bash-history"
 cat >> /root/.bash_history << EOF
