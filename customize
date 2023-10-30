@@ -71,6 +71,7 @@ a2enmod ssl    || true
 mkdir -p /etc/apache2/ssl
 chmod 0750 /etc/apache2/ssl
 /usr/sbin/a2enmod rewrite
+/usr/sbin/a2enmod headers
 /usr/local/bin/ssl-selfsigned.sh -d /etc/apache2/ssl -f kivitendo
 systemctl restart apache2
 
