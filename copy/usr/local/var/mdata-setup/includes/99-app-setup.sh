@@ -245,6 +245,12 @@ table.tbl-list tbody tr:hover {
 }
 EOF
 
+echo "* Add robots.txt"
+cat >> /usr/local/src/kivitendo-erp/robots.txt << 'EOF'
+User-agent: *
+Disallow: /
+EOF
+
 echo "* Restart apache"
 systemctl restart apache2
 
