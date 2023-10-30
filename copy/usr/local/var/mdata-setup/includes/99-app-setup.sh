@@ -231,6 +231,15 @@ body {
 .flash_message.flash_message_error {
   color: black;
 }
+table.tbl-list tbody tr:nth-child(odd) {
+  background-color: #e6e6e6;
+}
+table.tbl-list tbody tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+table.tbl-list tbody tr:hover {
+  background-color: #ffffff;
+}
 EOF
 
 echo "* Restart apache"
