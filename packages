@@ -69,6 +69,7 @@ texlive-fonts-recommended
 texlive-latex-extra
 texlive-lang-german
 texlive-xetex
+latexmk
 ghostscript
 # kivitedo-api
 ruby-dev
