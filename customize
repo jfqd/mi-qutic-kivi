@@ -93,8 +93,12 @@ if [[ -d "/etc/postgresql/${PG_VERSION}/main" ]]; then
   sed -i \
       -e "s/#listen_addresses = 'localhost'/listen_addresses = 'localhost'/" \
       /etc/postgresql/${PG_VERSION}/main/postgresql.conf
-  echo "local all kivitendo password" >> /etc/postgresql/${PG_VERSION}/main/pg_hba.conf
-  echo "host all kivitendo 127.0.0.1 255.255.255.255 password" >> /etc/postgresql/${PG_VERSION}/main/pg_hba.conf
+  cat >> /etc/postgresql/${PG_VERSION}/main/pg_hba.conf << EOF
+local   all             kivitendo                               password
+host    all             kivitendo       127.0.0.1/32            password
+host    all             kivitendo       ::1/128                 password
+EOF
+
 else
   echo "* ERROR: /etc/postgresql/${PG_VERSION}/main missing"
 fi
@@ -103,6 +107,8 @@ echo "* Copy kivitendo postgresql setup"
 mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
 mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
 mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql
+cp /usr/local/var/tmp/kivitendo-api_service /usr/local/src/kivitendo-erp/config/kivitendo-api.service
+
 
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups

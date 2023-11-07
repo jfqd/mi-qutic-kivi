@@ -13,19 +13,24 @@ gem install dotenv
 gem install activesupport
 gem install rest-client
 gem install hanami-cli -v0.1.1
-gem install --local ./rmkivi-0.3.5.gem
+gem install --local ./rmkivi-0.3.6.gem
 
 cp env.sample ../.env
 cd ..
 rm -rf ./rmkivi
 
-cat >> rmkivi-sync << EOF
+cat >> rmkivi-sync << 'EOF'
 #!/usr/bin/bash
 
-ruby /var/lib/gems/3.0.0/gems/rmkivi-0.3.5/bin/rmkivi sync $(date "+%Y-%m-%d")
+ruby /var/lib/gems/3.0.0/gems/rmkivi-0.3.6/bin/rmkivi sync $(date "+%Y-%m-%d")
 EOF
 chmod +x ./rmkivi-sync
 chown -R ruby:ruby /home/ruby
 chmod 0640 .env
 
-echo "*/5 * * * * cd /home/ruby/www/qutic_rmkivi/current && ./rmkivi-sync 2>&1 >> ./sync.log" >> /var/spool/cron/crontabs/ruby
+cat >> /etc/cron.d/kivi-sync << 'EOF'
+MAILTO=root
+#
+*/5 * * * *   ruby       cd /home/ruby/www/qutic_rmkivi/current && ./rmkivi-sync 2>&1 >> ./sync.log
+#
+EOF
