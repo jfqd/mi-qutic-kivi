@@ -1,8 +1,25 @@
 # Changelog
 
+## 20230721.1
+
+* get kivi sync working with ruby 3
+* remove css patches for design 4.0
+* use packages from postgresql.org
+* extend config for new version
+* only preserve the last 10 backups
+* add option to access the backup via http
+* add script for cert-change
+* add script for rmkivi-install
+* add patch for design 4.0
+* migrate from crontab file to cron.d
+* add robots.txt file
+* add http headers
+* get kivi sync working with ruby 3
+
 ## 20230721.0
 
 * use latest qutic ubuntu 22.04 lx base image
+* fix patch for latest kivitendo version
 
 ## 20210413.0
 
