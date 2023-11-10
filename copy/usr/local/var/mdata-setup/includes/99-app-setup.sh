@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# start task-server
-if [[ $(/native/usr/sbin/mdata-get start_task_server 2>&1) = "true" ]]; then
-  echo "* Start taskserver"
-  systemctl enable kivitendo-task-server.service
-  systemctl start kivitendo-task-server.service
-fi
-
 # setup kivitendo mailer
 if /native/usr/sbin/mdata-get mail_smarthost 1>/dev/null 2>&1; then
   echo "* Setup kivi config for mail"
@@ -222,6 +215,13 @@ cat >> /usr/local/src/kivitendo-erp/robots.txt << 'EOF'
 User-agent: *
 Disallow: /
 EOF
+
+# start task-server
+if [[ $(/native/usr/sbin/mdata-get start_task_server 2>&1) = "true" ]]; then
+  echo "* Start taskserver"
+  systemctl enable kivitendo-task-server.service
+  systemctl start kivitendo-task-server.service
+fi
 
 echo "* Restart apache"
 systemctl restart apache2
