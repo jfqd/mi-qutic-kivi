@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-if [[ $(uname -s) = "SunOS" ]]; then
+if [[ $(uname -s) = "Linux" ]]; then
   # Illumos / SunOS
   # change cert
   NAME=$(basename /etc/apache2/ssl/*.pem .pem)
