@@ -6,7 +6,7 @@ export LC_ALL=en_US.utf8
 export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
 
-KIVITENDO_VERSION="3.8.0"
+KIVITENDO_VERSION="3.9.0"
 PG_VERSION=16
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -118,7 +118,7 @@ MAILTO=root
 #
 0 1 * * *     postgres   /usr/local/bin/psql_backup
 0 2 1 * *     postgres   /usr/bin/vacuumdb --all
-15 1 * * *    root       /usr/local/bin/kivi_backup
+0 4 * * *     root       /usr/local/bin/kivi_backup
 # END
 EOF
 
