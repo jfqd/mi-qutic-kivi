@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.9.0
+
+* use latest kivitendo 3.9.0
+
 ## 20230721.1
 
 * get kivi sync working with ruby 3
