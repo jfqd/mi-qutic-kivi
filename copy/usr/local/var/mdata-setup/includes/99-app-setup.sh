@@ -208,6 +208,9 @@ table.tbl-list tbody tr:nth-child(even) {
 table.tbl-list tbody tr:hover {
   background-color: #ffffff;
 }
+table td img, table th img {
+  width: 20px !important;
+}
 EOF
 
 echo "* Add robots.txt"
