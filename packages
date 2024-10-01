@@ -51,6 +51,8 @@ libexception-class-perl
 libimager-perl
 libimager-qrcode-perl
 librest-client-perl
+libuuid-tiny-perl
+libhttp-dav-perl
 # other dependencies
 apache2
 git
