@@ -7,7 +7,7 @@ export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
 
 KIVITENDO_VERSION="3.9.0"
-PG_VERSION=16
+PG_VERSION=17
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export DEBIAN_FRONTEND=noninteractive
@@ -140,6 +140,7 @@ rm -rf /var/lib/bootstrap
 
 echo "* Cleaning up."
 # apt-get -y purge git make gcc g++ build-essential
+rm -rf /root/customize
 rm -rf /usr/local/var/tmp/*
 rm -rf /var/spool/mail/*
 history -c
