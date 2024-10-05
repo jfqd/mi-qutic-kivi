@@ -81,12 +81,13 @@ echo "deb [signed-by=/usr/share/keyrings/postgresql.asc] http://apt.postgresql.o
 
 echo "* Install postgresql"
 apt-get update
-apt-get install -y postgresql postgresql-contrib
+apt-get install -y "postgresql-${PG_VERSION}" postgresql-contrib
 
 echo "* Fix postgresql for lx-branch"
 sed -i -e "s|PIDFile=|#PIDFile=|" /lib/systemd/system/postgresql@.service
 systemctl daemon-reload
 pg_createcluster ${PG_VERSION} main --start || true
+apt-mark hold "postgresql-${PG_VERSION}"
 
 echo "* Setup postgresql"
 if [[ -d "/etc/postgresql/${PG_VERSION}/main" ]]; then
@@ -109,7 +110,6 @@ mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/confi
 mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql
 cp /usr/local/var/tmp/kivitendo-api_service /usr/local/src/kivitendo-erp/config/kivitendo-api.service
 
-
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups
 chown postgres:postgres /var/lib/postgresql/backups
@@ -119,6 +119,8 @@ MAILTO=root
 0 1 * * *     postgres   /usr/local/bin/psql_backup
 0 2 1 * *     postgres   /usr/bin/vacuumdb --all
 0 4 * * *     root       /usr/local/bin/kivi_backup
+# 0 3 * * *     www-data   /usr/bin/perl /usr/local/src/kivitendo-erp/scripts/task_server.pl --run-job=2 debug
+# */10 6-18 * * *   www-data   /usr/bin/perl /usr/local/src/kivitendo-erp/scripts/task_server.pl --run-job=555 debug >/dev/null 2>&1
 # END
 EOF
 
