@@ -130,6 +130,11 @@ echo "* Patch kivitendo css"
 cat >> /usr/local/src/kivitendo-erp/css/design40/style.css << 'EOF'
 
 /* changes by qutic development GmbH */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 body div.admin {
   background: #efefef;
 }
@@ -163,10 +168,17 @@ body div.admin {
 body #content {
   background-image: none;
   background: #efefef;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 #content>h1 {
   background-color: #79b61b;
   border-top: 1px solid #666;
+  margin: 0 -10px 0 -10px;
+  padding: .7em .5em .7em 10px;
+}
+#content>p {
+  margin: .6em 2em 1em 1px;
 }
 table.tbl-list {
   width: 100%;
@@ -210,6 +222,37 @@ table.tbl-list tbody tr:hover {
 }
 table td img, table th img {
   width: 20px !important;
+}
+.tabwidget>ul.ui-tabs-nav {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+#menuv3>ul>li {
+  height: 32px;
+}
+.wrapper {
+  margin-left: 0;
+  margin-right: 0;
+}
+#reconciliation_form {
+  margin-top: 40px;
+}
+#document_list_purchase_invoice .buttons input:nth-child(1),
+#attachment_list_purchase_invoice .buttons input:nth-child(1),
+#document_list_sales_order .buttons input:nth-child(1),
+#attachment_list_sales_order .buttons input:nth-child(1) {
+  display: none !important;
+}
+#document_list_purchase_invoice tr th:nth-child(1),
+#document_list_purchase_invoice tr td:nth-child(1),
+#attachment_list_purchase_invoice tr th:nth-child(1),
+#attachment_list_purchase_invoice tr td:nth-child(1),
+#document_list_sales_order tr th:nth-child(1),
+#document_list_sales_order tr td:nth-child(1),
+#attachment_list_sales_order tr th:nth-child(1),
+#attachment_list_sales_order tr td:nth-child(1) {
+  text-align: center !important;
+  width: 150px;
 }
 EOF
 
