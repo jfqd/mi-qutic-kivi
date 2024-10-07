@@ -29,6 +29,12 @@ cd kivitendo-erp
 git checkout release-${KIVITENDO_VERSION}
 git checkout -b release-${KIVITENDO_VERSION}-changes
 git am /usr/local/var/tmp/0001-migrate-list-to-compactitem.patch
+sed -i -e "s|\$self->_mk_render('file/list', 1, 0, \$json);|\$self->_mk_render('file/list', 0, 0, \$json)|" SL/Controller/File.pm
+# sed -i -e "s/edit_attachments/1==2/" templates/design40_webpages/file/list.html
+# sed -i -e "s/edit_attachments/1==2/" templates/mobile_webpages/file/list.html
+# sed -i -e "s/edit_attachments/1==2/" templates/webpages/file/list.html
+git add .
+git commit -m "after deploy changes"
 mkdir webdav
 chown -R www-data:www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
