@@ -254,6 +254,20 @@ table td img, table th img {
   text-align: center !important;
   width: 150px;
 }
+#html-menu .s0.menu-open a:hover,
+div.layout-split-left #html-menu .s0.menu-open a:active,
+div.layout-split-left #html-menu .s0.menu-open {
+  background-color: #79b61b !important;
+}
+div.layout-split-left #html-menu .s1 a:hover,
+div.layout-split-left #html-menu .s1 a:active {
+  background-color: #ffffff;
+}
+div.layout-split-left #html-menu .s0,
+div.layout-split-left #html-menu .s1,
+div.layout-split-left #html-menu .s2 {
+  background-color: #eeeee9;
+}
 EOF
 
 echo "* Add robots.txt"
