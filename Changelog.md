@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.9.0.1
+
+* add css for side-menue
+* fix page margins and attachement table styling
+* do not let attachments to be deleted
+* use latest postgresql v17
+* include icons into path
+
 ## 3.9.0
 
 * use latest kivitendo 3.9.0
