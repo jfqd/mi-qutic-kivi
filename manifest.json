@@ -1,7 +1,7 @@
 {
   "name":         "qutic-kivi",
-  "version":      "3.9.0.1",
-  "description":  "qutic kivitendo 3.9.0.1 image",
+  "version":      "3.9.1",
+  "description":  "qutic kivitendo 3.9.1 image",
   "organization": "qutic development",
   "brand":        "Instance",
   "homepage":     "https://github.com/jfqd/mi-qutic-kivi",

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.9.1
+
+* use latest kivitendo 3.9.1
+
 ## 3.9.0.1
 
 * add css for side-menue
