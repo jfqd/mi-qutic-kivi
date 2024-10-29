@@ -3,6 +3,9 @@ Description=Kivitendo-API
 
 [Service]
 WorkingDirectory=/home/ruby/www/kivitendo_rest_api
+Environment=WEB_CONCURRENCY=0
+Environment=RAILS_ENV=production
+Environment=RAILS_MAX_THREADS=1
 ExecStart=/usr/local/bin/bundle exec /usr/bin/ruby bin/rails server -e production
 Restart=always
 StandardOutput=syslog
