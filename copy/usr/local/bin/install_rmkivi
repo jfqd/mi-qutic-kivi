@@ -1,7 +1,9 @@
 #!/usr/bin/bash
 
-mkdir -p /home/ruby/www/qutic_rmkivi/current
-cd /home/ruby/www/qutic_rmkivi/current
+RMKIVI_VERSION=0.4.0
+
+mkdir -p /home/ruby/www/rmkivi/current
+cd /home/ruby/www/rmkivi/current
 
 PROJECT_URL=$(/native/usr/sbin/mdata-get git_clone_rmkivi)
 git clone "${PROJECT_URL}"
@@ -19,18 +21,18 @@ cp env.sample ../.env
 cd ..
 rm -rf ./rmkivi
 
-cat >> rmkivi-sync << 'EOF'
+cat > rmkivi-sync << EOF
 #!/usr/bin/bash
 
-ruby /var/lib/gems/3.0.0/gems/rmkivi-0.3.6/bin/rmkivi sync $(date "+%Y-%m-%d")
+ruby /var/lib/gems/3.0.0/gems/rmkivi-${RMKIVI_VERSION}/bin/rmkivi sync \$(date "+%Y-%m-%d")
 EOF
 chmod +x ./rmkivi-sync
 chown -R ruby:ruby /home/ruby
 chmod 0640 .env
 
-cat >> /etc/cron.d/kivi-sync << 'EOF'
+cat > /etc/cron.d/kivi-sync << 'EOF'
 MAILTO=root
 #
-*/5 * * * *   ruby       cd /home/ruby/www/qutic_rmkivi/current && ./rmkivi-sync 2>&1 >> ./sync.log
+*/5 * * * *   ruby       cd /home/ruby/www/rmkivi/current && ./rmkivi-sync 2>&1 >> ./sync.log
 #
 EOF
