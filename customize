@@ -34,7 +34,7 @@ sed -i -e "s|\$self->_mk_render('file/list', 1, 0, \$json);|\$self->_mk_render('
 # sed -i -e "s/edit_attachments/1==2/" templates/mobile_webpages/file/list.html
 # sed -i -e "s/edit_attachments/1==2/" templates/webpages/file/list.html
 git add .
-git commit -m "after deploy changes"
+git commit -m "after deploy changes /1"
 mkdir webdav
 chown -R www-data:www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf

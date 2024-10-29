@@ -3,6 +3,7 @@
 ## 3.9.1
 
 * use latest kivitendo 3.9.1
+* commit local changes
 
 ## 3.9.0.1
 

@@ -276,6 +276,10 @@ User-agent: *
 Disallow: /
 EOF
 
+cd /usr/local/src/kivitendo-erp
+git add .
+git commit -m "after deploy changes /2"
+
 # start task-server
 if [[ $(/native/usr/sbin/mdata-get start_task_server 2>&1) = "true" ]]; then
   echo "* Start taskserver"
