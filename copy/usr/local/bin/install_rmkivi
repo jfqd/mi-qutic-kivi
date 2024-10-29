@@ -13,7 +13,7 @@ gem install dotenv
 gem install activesupport
 gem install rest-client
 gem install hanami-cli -v0.1.1
-gem install --local ./rmkivi-0.3.6.gem
+gem install --local ./rmkivi-*.gem
 
 cp env.sample ../.env
 cd ..
