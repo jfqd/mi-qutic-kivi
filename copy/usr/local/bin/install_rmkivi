@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-RMKIVI_VERSION=0.4.0
+RMKIVI_VERSION=0.4.1
 
 mkdir -p /home/ruby/www/rmkivi/current
 cd /home/ruby/www/rmkivi/current
