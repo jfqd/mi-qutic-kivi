@@ -7,7 +7,8 @@ cd /home/ruby/www/rmkivi/current
 
 PROJECT_URL=$(/native/usr/sbin/mdata-get git_clone_rmkivi)
 git clone "${PROJECT_URL}"
-cd rmkivi
+(
+cd /home/ruby/www/rmkivi/current/rmkivi
 gem build rmkivi.gemspec
  
 gem install nokogiri
@@ -18,7 +19,7 @@ gem install hanami-cli -v0.1.1
 gem install --local ./rmkivi-*.gem
 
 cp env.sample ../.env
-cd ..
+)
 rm -rf ./rmkivi
 
 cat > rmkivi-sync << EOF
