@@ -17,6 +17,7 @@ sed -i \
     -e "s/config.read_encrypted_secrets = true/config.read_encrypted_secrets = false/" \
     config/environments/production.rb
 chown -R ruby:ruby /home/ruby
+chmod 0640 config/secrets.yml
 
 mv /usr/local/src/kivitendo-erp/config/kivitendo-api.service /etc/systemd/system/kivitendo-api.service
 systemctl daemon-reload

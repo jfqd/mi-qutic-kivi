@@ -38,6 +38,8 @@ git commit -m "after deploy changes /1"
 mkdir webdav
 chown -R www-data:www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
+chown www-data:root config/kivitendo.conf
+chmod 0640 config/kivitendo.conf
 cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
 sed -i \
      -e "s#/var/www/kivitendo-erp/scripts/task_server.pl#/usr/local/src/kivitendo-erp/scripts/task_server.pl#" \
