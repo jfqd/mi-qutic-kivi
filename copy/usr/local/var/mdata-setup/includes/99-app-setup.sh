@@ -268,6 +268,19 @@ div.layout-split-left #html-menu .s1,
 div.layout-split-left #html-menu .s2 {
   background-color: #eeeee9;
 }
+#link_table tbody tr:nth-child(odd) {
+  background-color: #e6e6e6;
+}
+#link_table tbody tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+#link_table tbody tr:hover {
+  background-color: #ffffff;
+}
+#link_table td {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
 EOF
 
 echo "* Add robots.txt"
