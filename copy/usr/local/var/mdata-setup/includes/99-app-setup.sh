@@ -281,6 +281,14 @@ div.layout-split-left #html-menu .s2 {
   padding-top: 3px;
   padding-bottom: 3px;
 }
+.overlay_img {
+  top: -200px;
+  left: -150px;
+  width: auto !important;
+}
+body #content .wrapper:has(.overlay_img) {
+  height: 75vh;
+}
 EOF
 
 echo "* Add robots.txt"
