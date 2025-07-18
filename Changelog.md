@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.9.2 - 2025-07-18
+
+* use latest kivitendo 3.9.2
+* use latest rmkivi v0.6.3
+* add env vars for puma
+
 ## 3.9.1 - 2024-10-29
 
 * use latest kivitendo 3.9.1
