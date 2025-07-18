@@ -94,7 +94,7 @@ apt-get install -y "postgresql-${PG_VERSION}" postgresql-contrib
 echo "* Fix postgresql for lx-branch"
 sed -i -e "s|PIDFile=|#PIDFile=|" /lib/systemd/system/postgresql@.service
 systemctl daemon-reload
-pg_createcluster ${PG_VERSION} main --start || true
+LC_ALL=C pg_createcluster ${PG_VERSION} main --start || true
 apt-mark hold "postgresql-${PG_VERSION}"
 
 echo "* Setup postgresql"
