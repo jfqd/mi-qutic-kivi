@@ -296,6 +296,9 @@ div.layout-split-left #html-menu .s2 {
 body #content .wrapper:has(.overlay_img) {
   height: 75vh;
 }
+table.tbl-list thead tr th {
+  text-align: left !important;
+}
 EOF
 
 echo "* Add robots.txt"
