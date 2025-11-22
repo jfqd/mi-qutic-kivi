@@ -117,6 +117,8 @@ mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kivitendo-erp/config/psq
 mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
 mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql
 cp /usr/local/var/tmp/kivitendo-api_service /usr/local/src/kivitendo-erp/config/kivitendo-api.service
+cp /usr/local/var/tmp/kivitendo-task-server_service /etc/systemd/system/kivitendo-task-server.service
+systemctl daemon-reload
 
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups
