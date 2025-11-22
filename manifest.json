@@ -1,10 +1,10 @@
 {
   "name":         "qutic-kivi",
-  "version":      "3.9.2",
-  "description":  "qutic kivitendo 3.9.2 image",
+  "version":      "3.9.3",
+  "description":  "qutic kiwifrei 3.9.3 image",
   "organization": "qutic development",
   "brand":        "Instance",
-  "homepage":     "https://github.com/jfqd/mi-qutic-kivi",
+  "homepage":     "https://github.com/jfqd/mi-qutic-kiwifrei",
   "base":         "64813eee-734d-11ee-bcf0-db475b509861",
   "customer_metadata": {
     "admin_authorized_keys": {"type": "text", "description": "SSH public authorized key(s) for the admin user"},
@@ -24,8 +24,8 @@
     "zabbix_pski":           {"type": "text", "description": "zabbix PSKIdentity"},
     "zabbix_psk":            {"type": "text", "description": "zabbix PSK"},
     "vfstab":                {"type": "text", "description": "nfs mountpoint for vfstab-file"},
-    "kivitendo_domain":      {"type": "text", "description": "domain of the kivitendo instance"},
-    "start_task_server":     {"type": "text", "description": "set to true if kivitendo task-server should be started"},
+    "kiwifrei_domain":       {"type": "text", "description": "domain of the kiwifrei instance"},
+    "start_task_server":     {"type": "text", "description": "set to true if kiwifrei task-server should be started"},
     "kivitendo_admin_pwd":   {"type": "text", "description": "Admin password for the kivitendo gui user"},
     "kivitendo_alert_email": {"type": "text", "description": "E-Mail address who will get information of background tests"},
     "kivitendo_fromn_email": {"type": "text", "description": "E-Mail address for sending"},
@@ -34,8 +34,8 @@
     "psql_kivitendo_pwd":    {"type": "text", "description": "postgresql password for the kivitendo user"},
     "webdav_user":           {"type": "text", "description": "webdav user"},
     "webdav_pwd":            {"type": "text", "description": "webdav password"},
-    "kivi_api_user":         {"type": "text", "description": "httpbasic user for kivitendo-api"},
-    "kivi_api_pwd":          {"type": "text", "description": "httpbasic password for kivitendo-api"},
-    "start_kivi_api":        {"type": "text", "description": "set to true if kivitendo-api should be started"}
+    "kiwifrei_api_user":     {"type": "text", "description": "httpbasic user for kiwifrei-api"},
+    "kiwifrei_api_pwd":      {"type": "text", "description": "httpbasic password for kiwifrei-api"},
+    "start_kiwifrei_api":    {"type": "text", "description": "set to true if kiwifrei-api should be started"}
   }
 }

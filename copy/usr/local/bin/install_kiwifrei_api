@@ -31,16 +31,16 @@ if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
 fi
 
 # setup kiwifrei-api http-basic user
-if /native/usr/sbin/mdata-get kivi_api_user 1>/dev/null 2>&1; then
-  API_USR=$(/native/usr/sbin/mdata-get kivi_api_user)
+if /native/usr/sbin/mdata-get kiwifrei_api_user 1>/dev/null 2>&1; then
+  API_USR=$(/native/usr/sbin/mdata-get kiwifrei_api_user)
   sed -i \
       -e "s#enter-http-user-here#${API_USR}#" \
       /home/ruby/www/kiwifrei_rest_api/config/secrets.yml
 fi
 
 # setup kiwifrei-api http-basic password
-if /native/usr/sbin/mdata-get kivi_api_pwd 1>/dev/null 2>&1; then
-  API_PWD=$(/native/usr/sbin/mdata-get kivi_api_pwd)
+if /native/usr/sbin/mdata-get kiwifrei_api_pwd 1>/dev/null 2>&1; then
+  API_PWD=$(/native/usr/sbin/mdata-get kiwifrei_api_pwd)
   sed -i \
       -e "s#enter-http-password-here#${API_PWD}#" \
       /home/ruby/www/kiwifrei_rest_api/config/secrets.yml

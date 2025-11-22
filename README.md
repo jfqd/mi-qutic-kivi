@@ -1,4 +1,4 @@
-# mi-qutic-kivi
+# mi-qutic-kiwifrei
 
 This repository is based on [Joyent mibe](https://github.com/jfqd/mibe).
 
@@ -24,4 +24,4 @@ TEMPLATE_ZONE_UUID=$(vmadm lookup alias='qutic-lx-template-zone')
 
 The systemd-service for the kivitendo-api is currently not working!
 
-(c) 2019-2023 qutic development GmbH
+(c) 2019-2025 qutic development GmbH
