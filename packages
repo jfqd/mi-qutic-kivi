@@ -53,13 +53,10 @@ libimager-qrcode-perl
 librest-client-perl
 libuuid-tiny-perl
 libhttp-dav-perl
+libcryptx-perl
 # other dependencies
 apache2
 git
-# postgresql
-# postgresql-14
-# postgresql-common
-# postgresql-contrib
 aqbanking-tools
 poppler-utils
 build-essential
@@ -73,7 +70,7 @@ texlive-lang-german
 texlive-xetex
 latexmk
 ghostscript
-# kivitedo-api
+# kiwifrei-api
 ruby-dev
 libpq-dev
 libxml2
