@@ -46,7 +46,7 @@ if /native/usr/sbin/mdata-get kivitendo_fromn_email 1>/dev/null 2>&1; then
   echo "* Setup kivi config for mail"
   MAIL_FROM=$(/native/usr/sbin/mdata-get kivitendo_fromn_email)
   sed -i \
-      -e "s#email_from     = kivitendo Daemon <root@localhost>#email_from     = ${MAIL_FROM}#g" \
+      -e "s#email_from     = kiwifrei Daemon <root@localhost>#email_from     = ${MAIL_FROM}#g" \
       /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
@@ -98,39 +98,39 @@ fi
 
 if [[ $(/native/usr/sbin/mdata-get start_kivi_api 2>&1) = "true" ]]; then
   echo "* Setup kivi-api"
-  # install kivitendo-api
-  /usr/local/bin/install_kivitendo_api
+  # install kiwifrei-api
+  /usr/local/bin/install_kiwifrei_api
 fi
 
 # fix a link
 echo "* Patch kivi link"
 sed -i \
-    -e "s#kivitendo Homepage#kivitendo Hosting#g" \
-    -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
-    -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
+    -e "s#kivitendo Homepage#kiwifrei Hosting#g" \
+    -e "s#http://www.kivitendo.de#https://qutic.com/kiwifrei#g" \
+    -e "s#http://kivitendo.de#https://qutic.com/kiwifrei#g" \
     /usr/local/src/kivitendo-erp/templates/webpages/login/company_logo.html
 sed -i \
-    -e "s#kivitendo Homepage#kivitendo Hosting#g" \
-    -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
-    -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
+    -e "s#kivitendo Homepage#kiwifrei Hosting#g" \
+    -e "s#http://www.kivitendo.de#https://qutic.com/kiwifrei#g" \
+    -e "s#http://kivitendo.de#https://qutic.com/kiwifrei#g" \
     /usr/local/src/kivitendo-erp/templates/design40_webpages/login/company_logo.html
 sed -i \
-    -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
-    -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
+    -e "s#http://www.kivitendo.de#https://qutic.com/kiwifrei#g" \
+    -e "s#http://kivitendo.de#https://qutic.com/kiwifrei#g" \
     /usr/local/src/kivitendo-erp/templates/design40_webpages/login_screen/user_login.html
 sed -i \
-    -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
-    -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
+    -e "s#http://www.kivitendo.de#https://qutic.com/kiwifrei#g" \
+    -e "s#http://kivitendo.de#https://qutic.com/kiwifrei#g" \
     /usr/local/src/kivitendo-erp/templates/webpages/login_screen/user_login.html
 sed -i \
-    -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
-    -e "s#http://kivitendo.de#https://qutic.com/kivitendo#g" \
+    -e "s#http://www.kivitendo.de#https://qutic.com/kiwifrei#g" \
+    -e "s#http://kivitendo.de#https://qutic.com/kiwifrei#g" \
     /usr/local/src/kivitendo-erp/templates/design40_webpages/admin/adminlogin.html
 sed -i \
-    -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
+    -e "s#http://www.kivitendo.de#https://qutic.com/kiwifrei#g" \
     /usr/local/src/kivitendo-erp/menus/admin/00-admin.yaml
 sed -i \
-    -e "s#http://www.kivitendo.de#https://qutic.com/kivitendo#g" \
+    -e "s#http://www.kivitendo.de#https://qutic.com/kiwifrei#g" \
     /usr/local/src/kivitendo-erp/menus/user/00-erp.yaml
 
 echo "* Patch kivitendo css"

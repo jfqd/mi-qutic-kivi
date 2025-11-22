@@ -2,7 +2,7 @@
 Description=Kivitendo-API
 
 [Service]
-WorkingDirectory=/home/ruby/www/kivitendo_rest_api
+WorkingDirectory=/home/ruby/www/kkiwifrei_rest_api
 Environment=WEB_CONCURRENCY=0
 Environment=RAILS_ENV=production
 Environment=RAILS_MAX_THREADS=1
@@ -10,7 +10,7 @@ ExecStart=/usr/local/bin/bundle exec /usr/bin/ruby bin/rails server -e productio
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=KivitendoAPI
+SyslogIdentifier=kiwifreiAPI
 User=ruby
 Group=ruby
 Environment=RAILS_ENV=production

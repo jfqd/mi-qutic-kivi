@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
 cd /home/ruby/www/
-git clone https://github.com/jfqd/kivitendo_rest_api.git
-cd kivitendo_rest_api
+git clone https://github.com/jfqd/kiwifrei_rest_api.git
+cd kiwifrei_rest_api
 gem install bundler -v2.4.21
 export RAILS_ENV=production
 export BUNDLER_WITHOUT="development test"
@@ -19,33 +19,33 @@ sed -i \
 chown -R ruby:ruby /home/ruby
 chmod 0640 config/secrets.yml
 
-mv /usr/local/src/kivitendo-erp/config/kivitendo-api.service /etc/systemd/system/kivitendo-api.service
+mv /usr/local/src/kivitendo-erp/config/kiwifrei-api.service /etc/systemd/system/kiwifrei-api.service
 systemctl daemon-reload
 
-# setup kivitendo-api postgesql-connection
+# setup kiwifrei-api postgesql-connection
 if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
   DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
   sed -i \
       -e "s#postgres://pg-user:pg-pwd@pg-host/pg-db-name#postgres://kivitendo:${DB_USER_PWD}@127.0.0.1/kivitendo#" \
-      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+      /home/ruby/www/kiwifrei_rest_api/config/secrets.yml
 fi
 
-# setup kivitendo-api http-basic user
+# setup kiwifrei-api http-basic user
 if /native/usr/sbin/mdata-get kivi_api_user 1>/dev/null 2>&1; then
   API_USR=$(/native/usr/sbin/mdata-get kivi_api_user)
   sed -i \
       -e "s#enter-http-user-here#${API_USR}#" \
-      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+      /home/ruby/www/kiwifrei_rest_api/config/secrets.yml
 fi
 
-# setup kivitendo-api http-basic password
+# setup kiwifrei-api http-basic password
 if /native/usr/sbin/mdata-get kivi_api_pwd 1>/dev/null 2>&1; then
   API_PWD=$(/native/usr/sbin/mdata-get kivi_api_pwd)
   sed -i \
       -e "s#enter-http-password-here#${API_PWD}#" \
-      /home/ruby/www/kivitendo_rest_api/config/secrets.yml
+      /home/ruby/www/kiwifrei_rest_api/config/secrets.yml
 fi
 
-# start kivitendo-api
-systemctl enable kivitendo-api.service
-systemctl start kivitendo-api.service
+# start kiwifrei-api
+systemctl enable kiwifrei-api.service
+systemctl start kiwifrei-api.service
