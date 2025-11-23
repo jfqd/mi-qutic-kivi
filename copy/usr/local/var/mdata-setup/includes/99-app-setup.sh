@@ -15,6 +15,12 @@ if /native/usr/sbin/mdata-get mail_smarthost 1>/dev/null 2>&1; then
       /usr/local/src/kivitendo-erp/config/kivitendo.conf
 fi
 
+# set masterkey for secrets encryption
+MASTERKEY=$(openssl rand -hex 64)
+sed -i \
+    -e "s#master_key =#master_key = ${MASTERKEY}#" \
+    /usr/local/src/kivitendo-erp/config/kivitendo.conf
+
 # setup kivitendo admin password
 if /native/usr/sbin/mdata-get kivitendo_admin_pwd 1>/dev/null 2>&1; then
   echo "* Setup kivi config for auth"
