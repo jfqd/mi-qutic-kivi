@@ -19,7 +19,7 @@ sed -i \
 chown -R ruby:ruby /home/ruby
 chmod 0640 config/secrets.yml
 
-mv /usr/local/src/kivitendo-erp/config/kiwifrei-api.service /etc/systemd/system/kiwifrei-api.service
+mv /usr/local/src/kiwifrei-erp/config/kiwifrei-api.service /etc/systemd/system/kiwifrei-api.service
 systemctl daemon-reload
 
 # setup kiwifrei-api postgesql-connection

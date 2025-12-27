@@ -1,5 +1,5 @@
 [Unit]
-Description=Kivitendo-API
+Description=kiwifrei-API
 
 [Service]
 WorkingDirectory=/home/ruby/www/kkiwifrei_rest_api

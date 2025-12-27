@@ -3,8 +3,8 @@
 NOW=`/bin/date "+%Y%m%d_%H%M%S"`
 
 # backup all databases
-/usr/bin/pg_dumpall | /bin/gzip > "/var/lib/postgresql/backups/${NOW}_kivitendo.pqsql.gz"
+/usr/bin/pg_dumpall | /bin/gzip > "/var/lib/postgresql/backups/${NOW}_kiwifrei.pqsql.gz"
 # only preserve the last 10 backups
-/bin/ls -1dt /var/lib/postgresql/backups/*_kivitendo.pqsql.gz | /usr/bin/tail -n +11 | /usr/bin/xargs rm -rf
+/bin/ls -1dt /var/lib/postgresql/backups/*_kiwifrei.pqsql.gz | /usr/bin/tail -n +11 | /usr/bin/xargs rm -rf
 
 exit 0

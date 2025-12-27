@@ -14,4 +14,4 @@ rm texlive.tar.bz2
 
 sed -i \
     -e "s#latex = pdflatex#latex = /usr/local/bin/run_pdflatex.sh#" \
-    /usr/local/src/kivitendo-erp/config/kivitendo.conf
+    /usr/local/src/kiwifrei-erp/config/kivitendo.conf

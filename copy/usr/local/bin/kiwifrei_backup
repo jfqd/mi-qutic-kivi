@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-SOURCE=/usr/local/src/kivitendo-erp
+SOURCE=/usr/local/src/kiwifrei-erp
 DESTINATION=/var/lib/postgresql/backups
 DATE=$(date '+%Y%m%d')
 
@@ -12,6 +12,6 @@ for folder in $(ls |egrep -v "(mail|pdf|print|*webpages)"); do
 done
 
 cd "${SOURCE}/.."
-/bin/tar cjf "${DESTINATION}/${DATE}_documents.tar.bz2" "./kivitendo_documents"
+/bin/tar cjf "${DESTINATION}/${DATE}_documents.tar.bz2" "./kiwifrei_documents"
 # only preserve the last 10 backups
 /bin/ls -1dt "${DESTINATION}"/*_documents.tar.bz2 | /usr/bin/tail -n +11 | /usr/bin/xargs rm -rf

@@ -6,7 +6,7 @@ export LC_ALL=en_US.utf8
 export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
 
-KIVITENDO_VERSION="3.9.2"
+# KIWIFREI_VERSION="4.0.1"
 PG_VERSION=17
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -20,30 +20,22 @@ apt-get -y dist-upgrade
 echo "* Setup language env"
 locale-gen en_US.utf8 || true
 
-echo "* Install kivitendo"
-mkdir -p /usr/local/src/kivitendo_documents
+echo "* Install kiwifrei"
+mkdir -p /usr/local/src/kiwifrei_documents
 cd /usr/local/src/
-chown -R www-data:staff kivitendo_documents
-git clone https://github.com/kivitendo/kivitendo-erp.git
-cd kivitendo-erp
-git checkout release-${KIVITENDO_VERSION}
-git checkout -b release-${KIVITENDO_VERSION}-changes
-git am /usr/local/var/tmp/0001-migrate-list-to-compactitem.patch
-sed -i -e "s|\$self->_mk_render('file/list', 1, 0, \$json);|\$self->_mk_render('file/list', 0, 0, \$json)|" SL/Controller/File.pm
-# sed -i -e "s/edit_attachments/1==2/" templates/design40_webpages/file/list.html
-# sed -i -e "s/edit_attachments/1==2/" templates/mobile_webpages/file/list.html
-# sed -i -e "s/edit_attachments/1==2/" templates/webpages/file/list.html
-git add .
-git commit -m "after deploy changes /1"
+chown -R www-data:staff kiwifrei_documents
+git clone https://codeberg.org/jfqd/kiwifrei-erp
+cd kiwifrei-erp
+# git checkout release-${KIWIFREI_VERSION}
 mkdir webdav
 chown -R www-data:www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
 chown www-data:root config/kivitendo.conf
 chmod 0640 config/kivitendo.conf
-cp scripts/boot/systemd/kivitendo-task-server.service /etc/systemd/system/
+cp scripts/boot/systemd/kiwifrei-task-server.service /etc/systemd/system/
 sed -i \
-     -e "s#/var/www/kivitendo-erp/scripts/task_server.pl#/usr/local/src/kivitendo-erp/scripts/task_server.pl#" \
-     /etc/systemd/system/kivitendo-task-server.service
+    -e "s#/var/www/kiwifrei-erp/scripts/task_server.pl#/usr/local/src/kiwifrei-erp/scripts/task_server.pl#" \
+    /etc/systemd/system/kiwifrei-task-server.service
 systemctl daemon-reload
 # new for 3.6.1
 cpanm HTML::Restrict IPC::Run || true
@@ -53,12 +45,7 @@ cpanm Encode::IMAPUTF7 Mail::IMAPClient || true
 echo "* check requirements"
 ./scripts/installation_check.pl -v || true
 
-echo "* Export SEPA as xml-file"
-sed -i \
-  -e "s/'.cdd'/'.xml'/" \
-  /usr/local/src/kivitendo-erp/bin/mozilla/sepa.pl
-
-echo "* Install requirements for kivitendo-api"
+echo "* Install requirements for kiwifrei-api"
 addgroup ruby
 adduser --disabled-password --system --quiet --home /home/ruby --shell /bin/bash ruby
 adduser ruby ruby
@@ -80,7 +67,7 @@ mkdir -p /etc/apache2/ssl
 chmod 0750 /etc/apache2/ssl
 /usr/sbin/a2enmod rewrite
 /usr/sbin/a2enmod headers
-/usr/local/bin/ssl-selfsigned.sh -d /etc/apache2/ssl -f kivitendo
+/usr/local/bin/ssl-selfsigned.sh -d /etc/apache2/ssl -f kiwifrei
 systemctl restart apache2
 
 echo "* Setup apt-requirements for postgresql"
@@ -112,37 +99,36 @@ else
   echo "* ERROR: /etc/postgresql/${PG_VERSION}/main missing"
 fi
 
-echo "* Copy kivitendo postgresql setup"
-mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kivitendo-erp/config/psql_kivi_user.sql
-mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kivitendo-erp/config/psql_kivi_superuser.sql
-mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kivitendo-erp/config/psql_kivi_template1.sql
-cp /usr/local/var/tmp/kivitendo-api_service /usr/local/src/kivitendo-erp/config/kivitendo-api.service
-cp /usr/local/var/tmp/kivitendo-task-server_service /etc/systemd/system/kivitendo-task-server.service
+echo "* Copy kiwifrei postgresql setup"
+mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kiwifrei-erp/config/psql_kivi_user.sql
+mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kiwifrei-erp/config/psql_kivi_superuser.sql
+mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kiwifrei-erp/config/psql_kivi_template1.sql
+cp /usr/local/var/tmp/kiwifrei-api_service /usr/local/src/kiwifrei-erp/config/kiwifrei-api.service
 systemctl daemon-reload
 
 echo "* Setup postgresql backup"
 mkdir -p /var/lib/postgresql/backups
 chown postgres:postgres /var/lib/postgresql/backups
-cat > /etc/cron.d/kivi-cron << 'EOF'
+cat > /etc/cron.d/kiwifrei-cron << 'EOF'
 MAILTO=root
 #
 0 1 * * *     postgres   /usr/local/bin/psql_backup
 0 2 1 * *     postgres   /usr/bin/vacuumdb --all
-0 4 * * *     root       /usr/local/bin/kivi_backup
-# 0 3 * * *     www-data   /usr/bin/perl /usr/local/src/kivitendo-erp/scripts/task_server.pl --run-job=2 debug
-# */10 6-18 * * *   www-data   /usr/bin/perl /usr/local/src/kivitendo-erp/scripts/task_server.pl --run-job=555 debug >/dev/null 2>&1
+0 4 * * *     root       /usr/local/bin/kiwifrei_backup
+# 0 3 * * *     www-data   /usr/bin/perl /usr/local/src/kiwifrei-erp/scripts/task_server.pl --run-job=2 debug
+# */10 6-18 * * *   www-data   /usr/bin/perl /usr/local/src/kiwifrei-erp/scripts/task_server.pl --run-job=555 debug >/dev/null 2>&1
 # END
 EOF
 
 echo "* Create bash-history"
 cat >> /root/.bash_history << EOF
-systemctl edit --full kivitendo-task-server.service
+systemctl edit --full kiwifrei-task-server.service
 systemctl daemon-reload
-systemctl reset-failed kivitendo-task-server.service
+systemctl reset-failed kiwifrei-task-server.service
 systemctl restart apache2
 journalctl --since $(date '+%Y-%m-%d')
 journalctl -r
-cd /usr/local/src/kivitendo-erp
+cd /usr/local/src/kiwifrei-erp
 su - postgres
 su - ruby
 EOF
