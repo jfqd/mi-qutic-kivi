@@ -4,9 +4,7 @@ This repository is based on [Joyent mibe](https://github.com/jfqd/mibe).
 
 ## description
 
-kivi lx-brand ubuntu 24.04 image, with kiwifrei version 4.0.1
-
-For upgade notes please use the [documentation](https://github.com/kivitendo/kivitendo-erp/blob/master/doc/UPGRADE).
+kiwifrei lx-brand ubuntu 24.04 image
 
 ## Build Image
 

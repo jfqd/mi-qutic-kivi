@@ -22,9 +22,9 @@ sed -i \
     /usr/local/src/kiwifrei-erp/config/kivitendo.conf
 
 # setup kiwifrei admin password
-if /native/usr/sbin/mdata-get kivitendo_admin_pwd 1>/dev/null 2>&1; then
+if /native/usr/sbin/mdata-get kiwifrei_admin_pwd 1>/dev/null 2>&1; then
   echo "* Setup kivi config for auth"
-  ADM_PWD=$(/native/usr/sbin/mdata-get kivitendo_admin_pwd)
+  ADM_PWD=$(/native/usr/sbin/mdata-get kiwifrei_admin_pwd)
   sed -i \
       -e "s#admin_password = admin123#admin_password = ${ADM_PWD}#" \
       /usr/local/src/kiwifrei-erp/config/kivitendo.conf
@@ -40,17 +40,17 @@ if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
 fi
 
 # setup kiwifrei alert email
-if /native/usr/sbin/mdata-get kivitendo_alert_email 1>/dev/null 2>&1; then
+if /native/usr/sbin/mdata-get kiwifrei_alert_email 1>/dev/null 2>&1; then
   echo "* Setup kivi config for mail"
-  ALERT_MAIL=$(/native/usr/sbin/mdata-get kivitendo_alert_email)
+  ALERT_MAIL=$(/native/usr/sbin/mdata-get kiwifrei_alert_email)
   sed -i \
       -e "s#send_email_to  = alert@example.com#send_email_to  = ${ALERT_MAIL}#" \
       /usr/local/src/kiwifrei-erp/config/kivitendo.conf
 fi
 
-if /native/usr/sbin/mdata-get kivitendo_fromn_email 1>/dev/null 2>&1; then
+if /native/usr/sbin/mdata-get kiwifrei_fromn_email 1>/dev/null 2>&1; then
   echo "* Setup kivi config for mail"
-  MAIL_FROM=$(/native/usr/sbin/mdata-get kivitendo_fromn_email)
+  MAIL_FROM=$(/native/usr/sbin/mdata-get kiwifrei_fromn_email)
   sed -i \
       -e "s#email_from     = kiwifrei Daemon <root@localhost>#email_from     = ${MAIL_FROM}#g" \
       /usr/local/src/kiwifrei-erp/config/kivitendo.conf
