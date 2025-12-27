@@ -18,8 +18,4 @@ TEMPLATE_ZONE_UUID=$(vmadm lookup alias='qutic-lx-template-zone')
                  -f /opt/mibe/images/qutic-kivi-*.zfs.gz
 ```
 
-## Known Issues
-
-The systemd-service for the kiwifrei-api is currently not working!
-
 (c) 2019-2025 qutic development GmbH
