@@ -59,10 +59,11 @@ chmod 0600 /home/ruby/.ssh/authorized_keys
 chown -R ruby:ruby /home/ruby/.ssh
 
 echo "* Activate apache modules"
-a2enmod fcgid  || true
-a2enmod dav    || true
-a2enmod dav_fs || true
-a2enmod ssl    || true
+a2enmod fcgid    || true
+a2enmod dav      || true
+a2enmod dav_fs   || true
+a2enmod dav_lock || true
+a2enmod ssl      || true
 mkdir -p /etc/apache2/ssl
 chmod 0750 /etc/apache2/ssl
 /usr/sbin/a2enmod rewrite
