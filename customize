@@ -21,11 +21,21 @@ echo "* Setup language env"
 locale-gen en_US.utf8 || true
 
 echo "* Install kiwifrei"
-mkdir -p /usr/local/src/kiwifrei_documents
+mkdir -p /usr/local/src/
 cd /usr/local/src/
-chown -R www-data:staff kiwifrei_documents
+
+mkdir kiwifrei_documents
+chown www-data:staff kiwifrei_documents
+
+mkdir dav-lock
+chown -R www-data:www-data dav-lock
+
+cd /usr/local/src/
 git clone https://codeberg.org/jfqd/kiwifrei-erp
 cd kiwifrei-erp
+
+ln -nfs /usr/local/src/kiwifrei-erp /usr/local/src/kivitendo-erp
+ln -nfs /usr/local/src/kiwifrei_documents /usr/local/src/kivitendo_documents
 # git checkout release-${KIWIFREI_VERSION}
 mkdir webdav
 chown -R www-data:www-data users spool webdav templates
