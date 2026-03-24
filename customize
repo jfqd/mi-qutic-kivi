@@ -40,6 +40,7 @@ ln -nfs /usr/local/src/kiwifrei_documents /usr/local/src/kivitendo_documents
 mkdir webdav
 chown -R www-data:www-data users spool webdav templates
 mv /usr/local/var/tmp/kivitendo.conf config/kivitendo.conf
+ln -nfs config/kivitendo.conf config/kiwifrei.conf
 chown www-data:root config/kivitendo.conf
 chmod 0640 config/kivitendo.conf
 cp scripts/boot/systemd/kiwifrei-task-server.service /etc/systemd/system/
