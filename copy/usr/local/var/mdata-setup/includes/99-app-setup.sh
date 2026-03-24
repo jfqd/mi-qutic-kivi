@@ -31,9 +31,9 @@ if /native/usr/sbin/mdata-get kiwifrei_admin_pwd 1>/dev/null 2>&1; then
 fi
 
 # setup kiwifrei database password
-if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
+if /native/usr/sbin/mdata-get psql_kiwifrei_pwd 1>/dev/null 2>&1; then
   echo "* Setup kivi config for db"
-  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
+  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kiwifrei_pwd)
   sed -i \
       -e "s#password = kivitendo_pwd#password = ${DB_USER_PWD}#" \
       /usr/local/src/kiwifrei-erp/config/kivitendo.conf
@@ -79,9 +79,9 @@ if /native/usr/sbin/mdata-get psql_postgres_pwd 1>/dev/null 2>&1; then
 fi
 
 # setup postgesql kiwifrei user
-if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
+if /native/usr/sbin/mdata-get psql_kiwifrei_pwd 1>/dev/null 2>&1; then
   echo "* Create db regular users"
-  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
+  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kiwifrei_pwd)
   sed -i \
       -e "s#foobar#${DB_USER_PWD}#" \
       /usr/local/src/kiwifrei-erp/config/psql_kivi_user.sql

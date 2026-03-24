@@ -23,8 +23,8 @@ mv /usr/local/src/kiwifrei-erp/config/kiwifrei-api.service /etc/systemd/system/k
 systemctl daemon-reload
 
 # setup kiwifrei-api postgesql-connection
-if /native/usr/sbin/mdata-get psql_kivitendo_pwd 1>/dev/null 2>&1; then
-  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kivitendo_pwd)
+if /native/usr/sbin/mdata-get psql_kiwifrei_pwd 1>/dev/null 2>&1; then
+  DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kiwifrei_pwd)
   sed -i \
       -e "s#postgres://pg-user:pg-pwd@pg-host/pg-db-name#postgres://kivitendo:${DB_USER_PWD}@127.0.0.1/kivitendo#" \
       /home/ruby/www/kiwifrei_rest_api/config/secrets.yml
