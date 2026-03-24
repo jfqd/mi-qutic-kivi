@@ -28,7 +28,7 @@
     "start_task_server":     {"type": "text", "description": "set to true if kiwifrei task-server should be started"},
     "kiwifrei_admin_pwd":    {"type": "text", "description": "Admin password for the kiwifrei gui user"},
     "kiwifrei_alert_email":  {"type": "text", "description": "E-Mail address who will get information of background tests"},
-    "kiwifrei_fromn_email":  {"type": "text", "description": "E-Mail address for sending"},
+    "kiwifrei_from_email":   {"type": "text", "description": "E-Mail address for sending"},
     "activate_zugpferd":     {"type": "text", "description": "set to true if zugpferd should be used"},
     "psql_postgres_pwd":     {"type": "text", "description": "postgresql password for the postgres superuser"},
     "psql_kiwifrei_pwd":     {"type": "text", "description": "postgresql password for the kiwifrei user"},

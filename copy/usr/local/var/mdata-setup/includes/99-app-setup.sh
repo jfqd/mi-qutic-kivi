@@ -48,9 +48,9 @@ if /native/usr/sbin/mdata-get kiwifrei_alert_email 1>/dev/null 2>&1; then
       /usr/local/src/kiwifrei-erp/config/kivitendo.conf
 fi
 
-if /native/usr/sbin/mdata-get kiwifrei_fromn_email 1>/dev/null 2>&1; then
+if /native/usr/sbin/mdata-get kiwifrei_from_email 1>/dev/null 2>&1; then
   echo "* Setup kivi config for mail"
-  MAIL_FROM=$(/native/usr/sbin/mdata-get kiwifrei_fromn_email)
+  MAIL_FROM=$(/native/usr/sbin/mdata-get kiwifrei_from_email)
   sed -i \
       -e "s#email_from     = kiwifrei Daemon <root@localhost>#email_from     = ${MAIL_FROM}#g" \
       /usr/local/src/kiwifrei-erp/config/kivitendo.conf
