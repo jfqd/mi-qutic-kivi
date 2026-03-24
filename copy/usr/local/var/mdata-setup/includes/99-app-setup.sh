@@ -58,10 +58,10 @@ fi
 
 # fix error: new encoding (UTF8) is incompatible with the encoding of the template database (SQL_ASCII)
 echo "* fix encoding issue"
-su - postgres -c 'psql UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';'
+su - postgres -c 'psql UPDATE pg_database SET datistemplate = FALSE WHERE datname = "template1";'
 su - postgres -c 'psql DROP DATABASE template1;'
-su - postgres -c 'psql CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UNICODE';'
-su - postgres -c 'psql UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template1';'
+su - postgres -c 'psql CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = "UNICODE";'
+su - postgres -c 'psql UPDATE pg_database SET datistemplate = TRUE WHERE datname = "template1";'
 
 echo "* enable plpgsql extension in db"
 su - postgres -c 'psql template1 --file=/usr/local/src/kiwifrei-erp/config/psql_kivi_template1.sql' || true
@@ -115,8 +115,8 @@ Disallow: /
 EOF
 
 cd /usr/local/src/kiwifrei-erp
-git add .
-git commit -m "after deploy changes /2"
+# git add .
+# git commit -m "after deploy changes /2"
 
 # start task-server
 if [[ $(/native/usr/sbin/mdata-get start_task_server 2>&1) = "true" ]]; then

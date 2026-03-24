@@ -7,7 +7,7 @@ export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
 
 # KIWIFREI_VERSION="4.0.1"
-PG_VERSION=18
+PG_VERSION=17
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export DEBIAN_FRONTEND=noninteractive
