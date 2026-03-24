@@ -103,7 +103,7 @@ if /native/usr/sbin/mdata-get webdav_user 1>/dev/null 2>&1; then
 fi
 
 if [[ $(/native/usr/sbin/mdata-get start_kiwifrei_api 2>&1) = "true" ]]; then
-  echo "* Setup kivi-api"
+  echo "* Setup kiwifrei-api"
   # install kiwifrei-api
   /usr/local/bin/install_kiwifrei_api
 fi
