@@ -1,7 +1,7 @@
 {
   "name":         "qutic-kiwifrei",
-  "version":      "4.0.1",
-  "description":  "qutic kiwifrei 4.0.1 image",
+  "version":      "4.0.2",
+  "description":  "qutic Kiwifrei-ERP image",
   "organization": "qutic development",
   "brand":        "Instance",
   "homepage":     "https://codeberg.org/jfqd/kiwifrei-erp",
