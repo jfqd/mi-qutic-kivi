@@ -114,9 +114,9 @@ User-agent: *
 Disallow: /
 EOF
 
+echo "* Create LaTeX print template"
 cd /usr/local/src/kiwifrei-erp
-# git add .
-# git commit -m "after deploy changes /2"
+cp -rpav templates/print/marei templates/latex-druckvorlage
 
 # start task-server
 if [[ $(/native/usr/sbin/mdata-get start_task_server 2>&1) = "true" ]]; then
