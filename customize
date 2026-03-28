@@ -120,9 +120,9 @@ else
 fi
 
 echo "* Copy kiwifrei postgresql setup"
-mv /usr/local/var/tmp/psql_kivi_user.sql /usr/local/src/kiwifrei-erp/config/psql_kivi_user.sql
-mv /usr/local/var/tmp/psql_kivi_superuser.sql /usr/local/src/kiwifrei-erp/config/psql_kivi_superuser.sql
-mv /usr/local/var/tmp/psql_kivi_template1.sql /usr/local/src/kiwifrei-erp/config/psql_kivi_template1.sql
+mv /usr/local/var/tmp/psql_kiwifrei_user.sql /usr/local/src/kiwifrei-erp/config/psql_kiwifrei_user.sql
+mv /usr/local/var/tmp/psql_kiwifrei_superuser.sql /usr/local/src/kiwifrei-erp/config/psql_kiwifrei_superuser.sql
+mv /usr/local/var/tmp/psql_kiwifrei_template1.sql /usr/local/src/kiwifrei-erp/config/psql_kiwifrei_template1.sql
 cp /usr/local/var/tmp/kiwifrei-api_service /usr/local/src/kiwifrei-erp/config/kiwifrei-api.service
 systemctl daemon-reload
 

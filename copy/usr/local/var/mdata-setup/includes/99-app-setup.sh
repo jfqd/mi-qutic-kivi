@@ -64,8 +64,8 @@ su - postgres -c 'psql CREATE DATABASE template1 WITH TEMPLATE = template0 ENCOD
 su - postgres -c 'psql UPDATE pg_database SET datistemplate = TRUE WHERE datname = "template1";' || true
 
 echo "* enable plpgsql extension in db"
-su - postgres -c 'psql template1 --file=/usr/local/src/kiwifrei-erp/config/psql_kivi_template1.sql' || true
-rm /usr/local/src/kiwifrei-erp/config/psql_kivi_template1.sql
+su - postgres -c 'psql template1 --file=/usr/local/src/kiwifrei-erp/config/psql_kiwifrei_template1.sql' || true
+rm /usr/local/src/kiwifrei-erp/config/psql_kiwifrei_template1.sql
 
 # setup postgesql superuser
 if /native/usr/sbin/mdata-get psql_postgres_pwd 1>/dev/null 2>&1; then
@@ -73,9 +73,9 @@ if /native/usr/sbin/mdata-get psql_postgres_pwd 1>/dev/null 2>&1; then
   DB_SUPERUSER_PWD=$(/native/usr/sbin/mdata-get psql_postgres_pwd)
   sed -i \
       -e "s#foobar#${DB_SUPERUSER_PWD}#" \
-      /usr/local/src/kiwifrei-erp/config/psql_kivi_superuser.sql
-  su - postgres -c 'psql --file=/usr/local/src/kiwifrei-erp/config/psql_kivi_superuser.sql'
-  rm /usr/local/src/kiwifrei-erp/config/psql_kivi_superuser.sql
+      /usr/local/src/kiwifrei-erp/config/psql_kiwifrei_superuser.sql
+  su - postgres -c 'psql --file=/usr/local/src/kiwifrei-erp/config/psql_kiwifrei_superuser.sql'
+  rm /usr/local/src/kiwifrei-erp/config/psql_kiwifrei_superuser.sql
 fi
 
 # setup postgesql kiwifrei user
@@ -84,9 +84,9 @@ if /native/usr/sbin/mdata-get psql_kiwifrei_pwd 1>/dev/null 2>&1; then
   DB_USER_PWD=$(/native/usr/sbin/mdata-get psql_kiwifrei_pwd)
   sed -i \
       -e "s#foobar#${DB_USER_PWD}#" \
-      /usr/local/src/kiwifrei-erp/config/psql_kivi_user.sql
-  su - postgres -c 'psql --file=/usr/local/src/kiwifrei-erp/config/psql_kivi_user.sql'
-  rm /usr/local/src/kiwifrei-erp/config/psql_kivi_user.sql
+      /usr/local/src/kiwifrei-erp/config/psql_kiwifrei_user.sql
+  su - postgres -c 'psql --file=/usr/local/src/kiwifrei-erp/config/psql_kiwifrei_user.sql'
+  rm /usr/local/src/kiwifrei-erp/config/psql_kiwifrei_user.sql
   # allow the user to create databases
   su - postgres -c 'psql -c "ALTER USER kivitendo CREATEDB;"'
   systemctl restart postgresql &
