@@ -156,6 +156,9 @@ else
       /usr/local/src/kiwifrei-erp/config/kiwifrei.conf
 
   ln -nfs /etc/apache2/sites-available/native.conf /etc/apache2/sites-enabled/default
+  
+  systemctl disable nginx || true
+  systemctl stop nginx || true
 fi
 
 echo "* Restart apache"
