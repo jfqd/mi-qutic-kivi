@@ -54,6 +54,7 @@ librest-client-perl
 libuuid-tiny-perl
 libhttp-dav-perl
 libcryptx-perl
+# libfcgi-perl
 # other dependencies
 apache2
 git
@@ -79,3 +80,6 @@ zlib1g-dev
 net-tools
 cpanminus
 icc-profiles-free
+# nginx
+nginx
+nginx-extras

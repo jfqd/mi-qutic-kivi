@@ -12,7 +12,12 @@ if [[ $(uname -s) = "Linux" ]]; then
       chmod 0600 ${NAME}.key
       chmod 0600 ${NAME}.pem
     )
-    systemctl restart apache2
+    
+    if [[ -f /etc/nginx/site-enabled/with-proxy-auth ]]; then
+      systemctl restart nginx
+    else
+      systemctl restart apache2
+    fi
   else
     echo "pem file is missing!"
     exit 1
