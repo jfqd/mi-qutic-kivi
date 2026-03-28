@@ -11,7 +11,7 @@
 
 ## 4.0.1 - 2025-12-27
 
-* migrate from kivitendo-erp to Kiwifrei-ERP
+* migrate to Kiwifrei-ERP
 * add mising dependency
 * rename project and rest-api
 * add task-server service
