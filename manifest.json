@@ -37,6 +37,7 @@
     "kiwifrei_api_user":     {"type": "text", "description": "httpbasic user for kiwifrei-api"},
     "kiwifrei_api_pwd":      {"type": "text", "description": "httpbasic password for kiwifrei-api"},
     "start_kiwifrei_api":    {"type": "text", "description": "set to true if kiwifrei-api should be started"},
-    "sso_auth_domain":       {"type": "text", "description": "domain of the authelia service"}
+    "sso_auth_domain":       {"type": "text", "description": "domain of the auth service"},
+    "sso_auth_secret":       {"type": "text", "description": "kiwifrei header-auth secret"}
   }
 }

@@ -133,11 +133,15 @@ if /native/usr/sbin/mdata-get sso_auth_domain 1>/dev/null 2>&1; then
   echo "* Setup auth service option"
   RESOLVERS=$(cat /etc/resolv.conf |grep nameserver |awk '{ print $2 }' 2>/dev/null |sed -z "s/\n/:53 /g")
   SSO_AUTH_DOMAIN=$(/native/usr/sbin/mdata-get sso_auth_domain)
-  SECURE_PROXY_SECRET=$(LC_ALL=C tr -cd '[:alnum:]_.' < /dev/urandom | head -c32)
-  sed -i \
+  
+  if /native/usr/sbin/mdata-get sso_auth_secret 1>/dev/null 2>&1; then
+    SECURE_PROXY_SECRET=$(/native/usr/sbin/mdata-get sso_auth_secret)
+  else
+    SECURE_PROXY_SECRET=$(LC_ALL=C tr -cd '[:alnum:]_.' < /dev/urandom | head -c32)
+  fi
+s  sed -i \
       -e "s/10.10.10.10:53/${RESOLVERS}/" \
       -e "s#auth.example.com#${SSO_AUTH_DOMAIN}#" \
-      -e "s#SECURE_PROXY_SECRET#${SECURE_PROXY_SECRET}#" \
       /etc/nginx/sites-available/kiwifrei.conf
 
   sed -i \
