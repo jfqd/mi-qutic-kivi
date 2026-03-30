@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+/usr/bin/echo "* Restore database"
+
+PSQL_GZ_FILE=$(/bin/ls -1dt /var/lib/postgresql/backups/*.pqsql.gz | /usr/bin/head -n1)
+/usr/bin/su - postgres -c "cp ${PSQL_GZ_FILE} /var/lib/postgresql/latest.pqsql.gz"
+/usr/bin/su - postgres -c "/usr/bin/gunzip /var/lib/postgresql/latest.pqsql.gz"
+/usr/bin/su - postgres -c "/usr/bin/psql -f /var/lib/postgresql/latest.pqsql"
+/usr/bin/rm "/var/lib/postgresql/latest.pqsql"
+
+/usr/bin/echo "* Restore template"
+TEMPLATE_ARCHIVE=$(/bin/ls -1dt /var/lib/postgresql/backups/*_template_*.tar.bz2 | grep -v bak | /usr/bin/head -n1)
+/usr/bin/tar xf "${TEMPLATE_ARCHIVE}"
+EXTRACTED_TEMPLATE_FOLDER=$(ls)
+/usr/bin/mv "${EXTRACTED_TEMPLATE_FOLDER}" /usr/local/src/kiwifrei-erp/templates/
+
+/usr/bin/echo "* Restore documents"
+DOCUMENTS_ARCHIVE=$(/bin/ls -1dt /var/lib/postgresql/backups/*_documents.tar.bz2 | /usr/bin/head -n1)
+/usr/bin/tar xf "${DOCUMENTS_ARCHIVE}"
+/usr/bin/mv /usr/local/src/kiwifrei_documents /usr/local/src/kiwifrei_documents.bak
+EXTRACTED_DOCUMENTS_FOLDER=$(ls)
+/usr/bin/mv "${EXTRACTED_DOCUMENTS_FOLDER}" /usr/local/src/kiwifrei_documents
+
+/usr/bin/echo "* Restore done"
