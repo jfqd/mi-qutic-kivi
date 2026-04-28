@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.4 - 2026-04-28
+
+* add restore-form-backup
+* harden sshd
+* cleanup sshd_config
+* server assets directly via nginx
+* get auth-secret from auth-service
+
 ## 4.0.3 - 2026-03-28
 
 * include another auth option
