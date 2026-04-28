@@ -2,7 +2,7 @@
 
 ## 4.0.4 - 2026-04-28
 
-* add restore-form-backup
+* add restore-from-backup
 * harden sshd
 * cleanup sshd_config
 * server assets directly via nginx
