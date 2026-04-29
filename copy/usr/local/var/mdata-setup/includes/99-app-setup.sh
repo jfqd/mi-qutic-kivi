@@ -57,11 +57,11 @@ if /native/usr/sbin/mdata-get kiwifrei_from_email 1>/dev/null 2>&1; then
 fi
 
 # fix error: new encoding (UTF8) is incompatible with the encoding of the template database (SQL_ASCII)
-echo "* fix encoding issue"
-su - postgres -c 'psql UPDATE pg_database SET datistemplate = FALSE WHERE datname = "template1";' || true
-su - postgres -c 'psql DROP DATABASE template1;' || true
-su - postgres -c 'psql CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = "UNICODE";' || true
-su - postgres -c 'psql UPDATE pg_database SET datistemplate = TRUE WHERE datname = "template1";' || true
+# echo "* fix encoding issue"
+# su - postgres -c 'psql UPDATE pg_database SET datistemplate = FALSE WHERE datname = "template1";' || true
+# su - postgres -c 'psql DROP DATABASE template1;' || true
+# su - postgres -c 'psql CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = "UNICODE";' || true
+# su - postgres -c 'psql UPDATE pg_database SET datistemplate = TRUE WHERE datname = "template1";' || true
 
 echo "* enable plpgsql extension in db"
 su - postgres -c 'psql template1 --file=/usr/local/src/kiwifrei-erp/config/psql_kiwifrei_template1.sql' || true
@@ -127,7 +127,9 @@ if [[ $(/native/usr/sbin/mdata-get start_task_server 2>&1) = "true" ]]; then
 fi
 
 mkdir -p /etc/apache2/sites-enabled || true
-rm /etc/apache2/sites-enabled/default || true
+if [[ -f /etc/apache2/sites-enabled/default ]]; then
+  rm /etc/apache2/sites-enabled/default
+fi
 
 if /native/usr/sbin/mdata-get sso_auth_domain 1>/dev/null 2>&1; then
   echo "* Setup auth service option"
@@ -139,7 +141,7 @@ if /native/usr/sbin/mdata-get sso_auth_domain 1>/dev/null 2>&1; then
   else
     SECURE_PROXY_SECRET=$(LC_ALL=C tr -cd '[:alnum:]_.' < /dev/urandom | head -c32)
   fi
-s  sed -i \
+  sed -i \
       -e "s/10.10.10.10:53/${RESOLVERS}/" \
       -e "s#auth.example.com#${SSO_AUTH_DOMAIN}#" \
       /etc/nginx/sites-available/kiwifrei.conf
@@ -167,6 +169,9 @@ fi
 
 echo "* Restart apache"
 systemctl restart apache2
+
+echo "* Cleaning up."
+rm -rf /usr/local/var/tmp/*
 
 # install texlive 2020?
 # if [[ $(/native/usr/sbin/mdata-get activate_zugpferd 2>&1) = "true" ]]; then
