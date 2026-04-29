@@ -131,38 +131,47 @@ if [[ -f /etc/apache2/sites-enabled/default ]]; then
   rm /etc/apache2/sites-enabled/default
 fi
 
-if [[ /native/usr/sbin/mdata-get sso_auth_domain 1>/dev/null 2>&1 && -n "$(/native/usr/sbin/mdata-get sso_auth_domain)" ]]; then
-  echo "* Setup auth service option"
+if /native/usr/sbin/mdata-get sso_auth_domain 1>/dev/null 2>&1; then
   RESOLVERS=$(cat /etc/resolv.conf |grep nameserver |awk '{ print $2 }' 2>/dev/null |sed -z "s/\n/:53 /g")
   SSO_AUTH_DOMAIN=$(/native/usr/sbin/mdata-get sso_auth_domain)
   
-  if /native/usr/sbin/mdata-get sso_auth_secret 1>/dev/null 2>&1; then
-    SECURE_PROXY_SECRET=$(/native/usr/sbin/mdata-get sso_auth_secret)
+  if [[ -z "${SSO_AUTH_DOMAIN}" ]]; then
+    SKIP_AUTH="true"
   else
-    SECURE_PROXY_SECRET=$(LC_ALL=C tr -cd '[:alnum:]_.' < /dev/urandom | head -c32)
+    echo "* Setup auth service option"
+    if /native/usr/sbin/mdata-get sso_auth_secret 1>/dev/null 2>&1; then
+      SECURE_PROXY_SECRET=$(/native/usr/sbin/mdata-get sso_auth_secret)
+    else
+      SECURE_PROXY_SECRET=$(LC_ALL=C tr -cd '[:alnum:]_.' < /dev/urandom | head -c32)
+    fi
+    sed -i \
+        -e "s/10.10.10.10:53/${RESOLVERS}/" \
+        -e "s#auth.example.com#${SSO_AUTH_DOMAIN}#" \
+        /etc/nginx/sites-available/kiwifrei.conf
+
+    sed -i \
+        -e "s#SECURE_PROXY_SECRET#${SECURE_PROXY_SECRET}#" \
+        -e "s#SECURE_PROXY_ENABLED#1#" \
+        /usr/local/src/kiwifrei-erp/config/kiwifrei.conf
+
+    ln -nfs /etc/apache2/sites-available/with-proxy-auth.conf /etc/apache2/sites-enabled/with-proxy-auth.conf
+    mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+    mv /usr/local/var/tmp/nginx.conf /etc/nginx/nginx.conf
+    systemctl enable nginx
+    systemctl restart nginx
   fi
-  sed -i \
-      -e "s/10.10.10.10:53/${RESOLVERS}/" \
-      -e "s#auth.example.com#${SSO_AUTH_DOMAIN}#" \
-      /etc/nginx/sites-available/kiwifrei.conf
-
-  sed -i \
-      -e "s#SECURE_PROXY_SECRET#${SECURE_PROXY_SECRET}#" \
-      -e "s#SECURE_PROXY_ENABLED#1#" \
-      /usr/local/src/kiwifrei-erp/config/kiwifrei.conf
-
-  ln -nfs /etc/apache2/sites-available/with-proxy-auth.conf /etc/apache2/sites-enabled/with-proxy-auth
-  mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-  mv /usr/local/var/tmp/nginx.conf /etc/nginx/nginx.conf
-  systemctl enable nginx
-  systemctl restart nginx
 else
+  SKIP_AUTH="true"
+fi
+
+if [[ "${SKIP_AUTH}" = "true" ]]; then
+  echo "* Skip auth service option"
   sed -i \
       -e "s#SECURE_PROXY_ENABLED#0#" \
       /usr/local/src/kiwifrei-erp/config/kiwifrei.conf
 
-  ln -nfs /etc/apache2/sites-available/native.conf /etc/apache2/sites-enabled/default
-  
+  ln -nfs /etc/apache2/sites-available/native.conf /etc/apache2/sites-enabled/native.conf
+
   systemctl disable nginx || true
   systemctl stop nginx || true
 fi
