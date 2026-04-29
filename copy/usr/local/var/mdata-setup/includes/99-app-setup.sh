@@ -131,7 +131,7 @@ if [[ -f /etc/apache2/sites-enabled/default ]]; then
   rm /etc/apache2/sites-enabled/default
 fi
 
-if /native/usr/sbin/mdata-get sso_auth_domain 1>/dev/null 2>&1; then
+if [[ /native/usr/sbin/mdata-get sso_auth_domain 1>/dev/null 2>&1 && -n "$(/native/usr/sbin/mdata-get sso_auth_domain)" ]]; then
   echo "* Setup auth service option"
   RESOLVERS=$(cat /etc/resolv.conf |grep nameserver |awk '{ print $2 }' 2>/dev/null |sed -z "s/\n/:53 /g")
   SSO_AUTH_DOMAIN=$(/native/usr/sbin/mdata-get sso_auth_domain)
