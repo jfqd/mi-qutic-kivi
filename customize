@@ -34,8 +34,8 @@ cd /usr/local/src/
 git clone https://codeberg.org/jfqd/kiwifrei-erp
 cd kiwifrei-erp
 
-ln -nfs /usr/local/src/kiwifrei-erp /usr/local/src/kivitendo-erp
-ln -nfs /usr/local/src/kiwifrei_documents /usr/local/src/kivitendo_documents
+# ln -nfs /usr/local/src/kiwifrei-erp /usr/local/src/kivitendo-erp
+# ln -nfs /usr/local/src/kiwifrei_documents /usr/local/src/kivitendo_documents
 # git checkout release-${KIWIFREI_VERSION}
 mkdir webdav
 chown -R www-data:www-data users spool webdav templates
